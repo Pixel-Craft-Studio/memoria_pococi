@@ -1,10 +1,20 @@
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
-    return (
-      <>
-      <div className="bg-slate-400 w-full">Hola</div>
-      </>
-    );
-  };
-  
-  export default Footer;
-  
+  return (
+    <>
+      <div className="flex flex-col items-center bg-gray-300 w-full h-25">
+        <div className="flex">
+          <Link className='p-2' to='/'>Equipo de trabajo</Link>
+          <Link className='p-2' to='/'>Sobre este sitio</Link>
+        </div>
+        <div className="flex flex-col items-center">
+          <p className="text-gray-500">Copyright</p>
+          <p className="text-gray-500">Todos los derechos reservados</p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Footer;
