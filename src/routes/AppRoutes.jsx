@@ -2,21 +2,23 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "../pages/Homepage";
 import Contact from "../pages/Contact";
 import About from "../pages/About";
-import Layout from "../components/Layout";
 import Team from "../pages/Teams";
-
+import Layout from "../components/Layout";
+import DashboardRoutes from "./DashBoardRoutes"; // Importamos las rutas del Dashboard
 
 const AppRoutes = () => {
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/contact" element={<Contact/>} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/team" element={<Team/>} />
-        </Routes>
-      </Layout>
+      <Routes>
+        {/* Rutas con el Layout principal */}
+        <Route path="/" element={<Layout><HomePage /></Layout>} />
+        <Route path="/contact" element={<Layout><Contact /></Layout>} />
+        <Route path="/about" element={<Layout><About /></Layout>} />
+        <Route path="/team" element={<Layout><Team /></Layout>} />
+
+        {/* Rutas del Dashboard independientes */}
+        <Route path="/dashboard/*" element={<DashboardRoutes />} />
+      </Routes>
     </Router>
   );
 };
