@@ -1,19 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
+
 import SunIcon from "./SunIcon";
 import MoonIcon from "./MoonIcon";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const ThemeSwitcher = () => {
-  const getInitialTheme = () => {
-    const storedTheme = localStorage.getItem("theme");
-    return storedTheme
-      ? storedTheme === "dark"
-      : window.matchMedia("(prefers-color-scheme: dark)").matches;
-  };
-
-  const [isDarkMode, setIsDarkMode] = useState(getInitialTheme);
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const [isDarkMode, setIsDarkMode] = useLocalStorage("theme", prefersDark);
 
   useEffect(() => {
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
 
