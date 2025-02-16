@@ -32,12 +32,14 @@ const Example = () => {
     isLoading: isPosting,
     error: postError,
   } = usePost(ENDPOINTS.CONFIGURATION);
+
   const {
     data: updateDataResponse,
     mutate: updateDataApi,
     isLoading: isPatching,
     error: patchError,
   } = usePatch(ENDPOINTS.CONFIGURATION);
+  
   const {
     data: deleteDataResponse,
     mutate: deleteDataApi,
