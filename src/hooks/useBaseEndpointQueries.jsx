@@ -1,28 +1,30 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { QUERY_KEYS } from "../api/api_constants";
+import { get_query_key } from "../api/api_constants";
 import { BaseApiService } from "../api/api_core";
 
 const getEndpointService = (endpoint) => new BaseApiService(endpoint);
 
-export const useGet = (endpoint) => {
+export const useGetAll = (endpoint) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.ALL_SOCIAL_MEDIA],
+    queryKey: [get_query_key(endpoint).all_items],
     queryFn: () => getEndpointService(endpoint).getAll(),
   });
 };
 
 export const useGetById = (endpoint, id) => {
   return useQuery({
-    queryKey: QUERY_KEYS.SOCIAL_MEDIA(id),
+    queryKey: get_query_key(endpoint).single_item(id),
     queryFn: () => getEndpointService(endpoint).getById(id),
   });
 };
 
 // Usando POST
 export const usePost = (endpoint) => {
+
   return useMutation({
     mutationFn: (data) => getEndpointService(endpoint).post(data),
-    onSuccess: () => {},
+    onSuccess: () => {
+    },
     onError: (error) => {
       console.error(error);
     },

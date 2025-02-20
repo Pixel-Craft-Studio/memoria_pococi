@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ENDPOINTS } from "../api/api_constants";
 import {
-  useGet,
+  useGetAll,
   useGetById,
   usePost,
   usePatch,
@@ -20,7 +20,7 @@ const Example = () => {
     data: allData,
     isFetching: isFetchingAll,
     error: errorAll,
-  } = useGet(ENDPOINTS.CONFIGURATION);
+  } = useGetAll(ENDPOINTS.CONFIGURATION);
   const { data, isFetching, error } = useGetById(
     ENDPOINTS.CONFIGURATION,
     ID_EXAMPLE
