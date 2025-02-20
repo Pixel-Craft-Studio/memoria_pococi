@@ -156,17 +156,27 @@ function About() {
 
         {/* Popup de éxito */}
         <div
-          className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 transition-opacity duration-300 ${
-            showPopup ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          className={`fixed inset-0 z-50 transition-opacity duration-300 ${
+            showPopup ? "pointer-events-auto" : "pointer-events-none"
           }`}
         >
+          {/* Fondo semitransparente */}
           <div
-            className={`bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-2 transition-all duration-300 ${
+            className={`fixed inset-0 bg-black transition-opacity duration-300 ${
+              showPopup ? "opacity-50" : "opacity-0"
+            }`}
+          ></div>
+
+          {/* Contenido del popup */}
+          <div
+            className={`fixed inset-0 flex items-center justify-center transition-all duration-300 ${
               showPopup ? "scale-100 opacity-100" : "scale-95 opacity-0"
             }`}
           >
-            <CheckCircleIcon className="h-6 w-6" />
-            <span>¡Actualización exitosa!</span>
+            <div className="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-2">
+              <CheckCircleIcon className="h-6 w-6" />
+              <span>¡Actualización exitosa!</span>
+            </div>
           </div>
         </div>
       </main>

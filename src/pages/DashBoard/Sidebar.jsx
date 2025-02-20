@@ -47,6 +47,15 @@ const Sidebar = () => {
                                 className={`overflow-hidden ${isConfigOpen ? 'max-h-40' : 'max-h-0'}`}
                             >
                                 <ul className={`pl-8 space-y-2`}>
+                                    <Link to="/dashboard/teams" className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700">
+                                        <span>Usuarios</span>
+                                    </Link>
+                                </ul>
+                            </div>
+                            <div
+                                className={`overflow-hidden ${isConfigOpen ? 'max-h-40' : 'max-h-0'}`}
+                            >
+                                <ul className={`pl-8 space-y-2`}>
                                     <Link to="/dashboard/about" className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700">
                                         <span>Sobre nosotros</span>
                                     </Link>
@@ -59,7 +68,7 @@ const Sidebar = () => {
 
                 {/* Botón de cerrar sesión */}
                 <div className="mt-auto">
-                    <Link to="/dashboard" className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-red-500 dark:hover:bg-red-600">
+                    <Link to="" className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-red-500 dark:hover:bg-red-600">
                         <FiLogOut className="text-lg" />
                         <span>Cerrar sesión</span>
                     </Link>
