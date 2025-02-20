@@ -156,8 +156,8 @@ function About() {
 
         {/* Popup de éxito */}
         <div
-          className={`fixed inset-0 z-50 transition-opacity duration-300 ${
-            showPopup ? "pointer-events-auto" : "pointer-events-none"
+          className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 transition-opacity duration-300 ${
+            showPopup ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
           }`}
         >
           {/* Fondo semitransparente */}
