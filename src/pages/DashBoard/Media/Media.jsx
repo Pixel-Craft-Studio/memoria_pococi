@@ -1,4 +1,3 @@
-
 import MediaTable from "./MediaTable";
 import MediaForm from "./MediaForm";
 import { useMediaForm } from "./hooks/useMediaForm";
@@ -7,6 +6,7 @@ import BaseModal from "../../../components/BaseModal";
 import AlertModal from "../../../components/AlertModal";
 import Sidebar from "../Sidebar";
 import { useMediaApi } from "./hooks/useMediaApi";
+import MediaCards from "./MediaCards";
 
 const Media = () => {
   const {
@@ -49,6 +49,13 @@ const Media = () => {
           updateSignalState={[updateSignal, setUpdateSignal]}
         />
 
+        <MediaCards
+          setFormData={setFormData}
+          setAlert={setAlert}
+          changeStage={changeStage}
+          updateSignalState={[updateSignal, setUpdateSignal]}
+        />
+
         <BaseModal
           enabledSend={isValidForm()}
           modalState={[!!isModalOpen, setIsModalOpen]}
@@ -72,7 +79,7 @@ const Media = () => {
           />
         </BaseModal>
 
-        <AlertModal 
+        <AlertModal
           message={alert.message}
           type={alert.type}
           onClose={() => setAlert({ message: "", type: "" })}

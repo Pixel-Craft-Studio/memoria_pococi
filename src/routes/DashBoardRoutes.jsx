@@ -3,6 +3,7 @@ import DashboardLayout from "../components/DashBoard/DashboardLayout";
 import Login from "../pages/DashBoard/Login";
 import DashboardHome from "../pages/DashBoard/Home"; // Página principal del Dashboard
 import About from "../pages/DashBoard/About";
+import Media from "../pages/DashBoard/Media/Media";
 
 const DashboardRoutes = () => {
   return (
@@ -11,7 +12,7 @@ const DashboardRoutes = () => {
         <Route path="/" element={<DashboardHome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
-        {/* Puedes agregar más rutas aquí */}
+        <Route path="/media" element={<Media />} />
       </Routes>
     </DashboardLayout>
   );

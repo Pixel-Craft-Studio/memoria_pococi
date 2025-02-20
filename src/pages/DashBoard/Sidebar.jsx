@@ -55,6 +55,11 @@ const Sidebar = () => {
                                     <Link to="/dashboard/about" className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700">
                                         <span>Sobre nosotros</span>
                                     </Link>
+
+                                    <Link to="/dashboard/media" className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700">
+                                        <span>Redes Sociales</span>
+                                    </Link>
+
                                 </ul>
                             </div>
                         </li>
