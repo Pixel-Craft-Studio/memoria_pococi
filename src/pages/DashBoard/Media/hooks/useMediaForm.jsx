@@ -3,7 +3,7 @@ import { CREATE, DELETE, UPDATE } from "../../../../api/api_constants";
 
 const emptyFormData = {
   name: "",
-  icon_url: "",
+  image_url: "",
 };
 
 export const useMediaForm = () => {
@@ -39,12 +39,14 @@ export const useMediaForm = () => {
   };
 
   const isValidForm = () => {
+    console.log(formData);
+    
     if (stage === DELETE) {
       return formData.confirm === formData.name;
     }
 
     if (stage === CREATE) {
-      return formData.name !== "" && formData.icon;
+      return formData.name !== "" && formData.image;
     }
 
     if (stage === UPDATE) {

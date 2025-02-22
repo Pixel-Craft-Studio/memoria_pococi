@@ -19,12 +19,12 @@ const MediaTable = ({ setFormData, changeStage, updateSignalState }) => {
   const [updateSignal, setUpdateSignal] = updateSignalState;
 
   const handleEdit = (item) => {
-    setFormData({ id: item.id, name: item.name, icon_url: item.icon_url });
+    setFormData({ id: item.id, name: item.name, image_url: item.image_url });
     changeStage(UPDATE);
   };
 
   const handleDelete = (item) => {
-    setFormData({ id: item.id, name: item.name, icon_url: item.icon_url });
+    setFormData({ id: item.id, name: item.name, image_url: item.image_url });
     changeStage(DELETE);
   };
 
@@ -114,7 +114,7 @@ const MediaTable = ({ setFormData, changeStage, updateSignalState }) => {
                   <td className="px-4 py-2 border-b border-gray-200 dark:border-gray-600">
                     <img
                       className="max-w-5"
-                      src={`${API_URL}/image${item.icon_url}`}
+                      src={`${API_URL}/image${item.image_url}`}
                       alt={item.name}
                     />
                   </td>

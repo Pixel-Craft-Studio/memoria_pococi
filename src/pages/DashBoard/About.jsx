@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import { ENDPOINTS } from "../../api/api_constants";
+import { API_URL, ENDPOINTS } from "../../api/api_constants";
 import { useGetById, usePatch } from "../../hooks/useBaseEndpointQueries";
-import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/24/solid";
+import { convertJsonToFormData } from "../../api/api_core";
+
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+} from "@heroicons/react/24/solid";
+import DropZone from "../../components/DropZone";
 
 function About() {
   // Obtener los datos actuales
@@ -26,22 +32,33 @@ function About() {
 
   // Estados para los inputs de actualización
   const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+
+  const [formData, setFormData] = useState({});
+
+  const handleChange = (e) => {    
+    const { name, value } = e.target;
+  
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+
+  };
 
   // Manejar la actualización
   const handleUpdate = async () => {
-    const updatedData = {
-      id: "about-us",
-      data: {
-        key: "about-us",
-        content: {
-          description: description || response.data.content.description,
-          image_url: imageUrl || response.data.content.image_url,
-        },
-      },
+    const payload = {
+      description: description || response.data.content.description,
     };
 
-    updateDataApi(updatedData);
+    if (formData.image) {
+      payload["image"] = formData.image;
+    }
+
+    updateDataApi({
+      id: "about-us",
+      data: convertJsonToFormData(payload),
+    });
   };
 
   // Efecto para mostrar el popup y recargar los datos
@@ -102,12 +119,12 @@ function About() {
             </p>
             <img
               className="rounded-lg h-60 w-full object-cover"
-              src={response.data.content.image_url}
+              src={`${API_URL}/image${response.data.content.image_url}`}
               alt="About"
             />
             <div className="text-sm text-gray-500 dark:text-gray-400">
               <p>Enlace de la imagen publicada:</p>
-              <p className="break-all">{response.data.content.image_url}</p>
+              <p className="break-all">{`${API_URL}/image${response.data.content.image_url}`}</p>
             </div>
           </div>
         </div>
@@ -117,7 +134,9 @@ function About() {
 
         {/* Sección de Actualización */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold mb-4">Actualizar Información</h2>
+          <h2 className="text-2xl font-semibold mb-4">
+            Actualizar Información
+          </h2>
           <div className="space-y-4">
             <textarea
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -126,18 +145,17 @@ function About() {
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
             />
+
+            <DropZone formData={formData} handleChange={handleChange} />
+
             <div className="text-sm text-gray-600 dark:text-gray-400">
               <p>
-                <strong>Nota:</strong> Al subir la nueva imagen debe tener un tamaño de 1920x500 píxeles. Si se sube una imagen de un tamaño diferente, su visualización puede cambiar.
+                <strong>Nota:</strong> Al subir la nueva imagen debe tener un
+                tamaño de 1920x500 píxeles. Si se sube una imagen de un tamaño
+                diferente, su visualización puede cambiar.
               </p>
             </div>
-            <input
-              type="text"
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-              placeholder="Nueva URL de la imagen"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-            />
+
             <button
               className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleUpdate}
@@ -157,7 +175,9 @@ function About() {
         {/* Popup de éxito */}
         <div
           className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 transition-opacity duration-300 ${
-            showPopup ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            showPopup
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
           }`}
         >
           {/* Fondo semitransparente */}
