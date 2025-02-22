@@ -1,26 +1,59 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useDropzone } from "react-dropzone";
 import { AiOutlinePicture } from "react-icons/ai";
+import { API_URL, DELETE, UPDATE } from "../../../api/api_constants";
+
 import PropTypes from "prop-types";
-import { DELETE } from "../../../api/api_constants";
 
 const MediaForm = ({ stage, formData, handleChange }) => {
   const [imgError, setImgError] = useState(false);
+  const [preview, setPreview] = useState(null);
+  const [file, setFile] = useState(null);
+  const isDeleteMode = stage === DELETE;
 
+  // Efecto para manejar el preview inicial
   useEffect(() => {
-    setImgError(false);
+    if (formData.icon_url) {
+      setPreview(`${API_URL}/image${formData.icon_url}`);
+      setImgError(false);
+    }
   }, [formData.icon_url]);
 
-  const isDeleteMode = stage === DELETE;
+  const onDrop = useCallback((acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (file) {
+      setFile(file);
+      
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+        handleChange({
+          target: {
+            name: "icon",
+            value: file, 
+          },
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  }, [handleChange]);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: {
+      'image/*': ['.png', '.jpg', '.jpeg', '.gif']
+    },
+    multiple: false
+  });
 
   return (
     <form className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg">
       <h2 className="text-xl font-semibold mb-4">
-        {" "}
-        {isDeleteMode ? "Eliminar" : "Crear"} red social
+        {isDeleteMode ? "Eliminar" : stage === UPDATE ? "Editar" : "Crear"} red social
       </h2>
 
       <label htmlFor="name" className="block text-sm font-medium">
-        Name
+        Nombre
       </label>
       <input
         type="text"
@@ -34,41 +67,49 @@ const MediaForm = ({ stage, formData, handleChange }) => {
 
       {!isDeleteMode && (
         <>
-          <label htmlFor="icon_url" className="block text-sm font-medium mt-3">
-            Icon URL
+          <label htmlFor="icon" className="block text-sm font-medium mt-3">
+            Icono
           </label>
 
-          <input
-            type="text"
-            name="icon_url"
-            id="icon_url"
-            value={formData.icon_url}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
-          />
-
-          <div className="mt-3">
-            <div className="flex justify-center">
-              {formData.icon_url && !imgError ? (
+          <div
+            {...getRootProps()}
+            className="w-full p-4 border-2 border-dashed rounded-md dark:bg-gray-700 dark:border-gray-600 flex flex-col items-center justify-center cursor-pointer hover:border-gray-400 transition-colors"
+          >
+            <input onInput={handleChange} name="icon" id="icon" {...getInputProps()} />
+            
+            {preview && !imgError ? (
+              <div className="flex flex-col items-center">
                 <img
-                  src={formData.icon_url}
-                  alt="Icon Preview"
-                  className="w-12 h-12 object-contain border rounded"
+                  src={preview}
+                  alt="Vista previa del icono"
+                  className="w-16 h-16 object-contain border rounded mb-2"
                   onError={() => setImgError(true)}
                 />
-              ) : (
-                <div className="w-12 h-12 shadow rounded flex items-center justify-center bg-gray-100 dark:bg-gray-700">
-                  <AiOutlinePicture className="text-gray-400" size={20} />
+                <p className="text-sm text-gray-500">Click o arrastra para cambiar</p>
+              </div>
+            ) : (
+              <>
+                <div className="w-16 h-16 shadow rounded flex items-center justify-center bg-gray-100 dark:bg-gray-700 mb-2">
+                  <AiOutlinePicture className="text-gray-400" size={24} />
                 </div>
-              )}
-            </div>
+                <p className="text-sm text-gray-500">
+                  Arrastra y suelta una imagen o haz clic aquí
+                </p>
+              </>
+            )}
           </div>
+
+          {file && (
+            <p className="mt-2 text-sm text-gray-500 text-center truncate">
+              Archivo seleccionado: {file.name}
+            </p>
+          )}
         </>
       )}
 
       {isDeleteMode && (
         <div className="mt-4">
-          <label htmlFor="confirm">
+          <label htmlFor="confirm" className="text-xs">
             Escriba &quot;{formData.name}&quot; para confirmar
           </label>
           <input

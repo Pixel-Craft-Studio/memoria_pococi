@@ -12,3 +12,5 @@ export const ENDPOINTS = {
 export const CREATE = "create";
 export const UPDATE = "update";
 export const DELETE = "delete";
+
+export const API_URL = "http://localhost:8001"

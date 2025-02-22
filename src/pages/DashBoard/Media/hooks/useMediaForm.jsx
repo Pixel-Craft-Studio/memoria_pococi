@@ -44,11 +44,11 @@ export const useMediaForm = () => {
     }
 
     if (stage === CREATE) {
-      return formData.name !== "" && formData.icon_url !== "";
+      return formData.name !== "" && formData.icon;
     }
 
     if (stage === UPDATE) {
-      return formData.name !== "" && formData.icon_url !== "";
+      return formData.name !== "";
     }
     return false;
   };

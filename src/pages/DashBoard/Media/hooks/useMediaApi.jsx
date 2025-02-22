@@ -1,6 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
-import { CREATE, DELETE, ENDPOINTS, UPDATE } from "../../../../api/api_constants";
-import { useDelete, usePatch, usePost } from "../../../../hooks/useBaseEndpointQueries";
+import {
+  CREATE,
+  DELETE,
+  ENDPOINTS,
+  UPDATE,
+} from "../../../../api/api_constants";
+import {
+  useDelete,
+  usePatch,
+  usePost,
+} from "../../../../hooks/useBaseEndpointQueries";
+
+import { convertJsonToFormData } from "../../../../api/api_core";
 
 export const useMediaApi = (setIsModalOpen, setFormData, emptyFormData) => {
   const [updateSignal, setUpdateSignal] = useState(false);
@@ -31,11 +42,11 @@ export const useMediaApi = (setIsModalOpen, setFormData, emptyFormData) => {
     if (stage === DELETE) {
       deleteDataApi(formData.id);
     } else if (stage === CREATE) {
-      postDataApi({ ...formData });
+      postDataApi(convertJsonToFormData({ ...formData }));
     } else if (stage === UPDATE) {
       updateDataApi({
         id: formData.id,
-        data: { ...formData },
+        data: convertJsonToFormData({ ...formData }),
       });
     }
   };
@@ -86,8 +97,6 @@ export const useMediaApi = (setIsModalOpen, setFormData, emptyFormData) => {
       type: "loading",
     });
   }, [isPosting, isPatching, isDeleting]);
-
-
 
   return {
     updateSignal,

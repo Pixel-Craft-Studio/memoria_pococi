@@ -9,6 +9,16 @@ export const fetchWithErrorHandling = async (url, options = {}) => {
   return response.json();
 };
 
+export const convertJsonToFormData = (jsonObject) => {
+  const formData = new FormData();
+
+  Object.keys(jsonObject).forEach((key) => {
+    formData.append(key, jsonObject[key]);
+  });
+
+  return formData;
+};
+
 export class BaseApiService {
   constructor(baseRoute) {
     this.baseRoute = baseRoute;
@@ -25,30 +35,44 @@ export class BaseApiService {
   }
 
   async post(data) {
-    const response = fetchWithErrorHandling(`${this.baseRoute}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    const options = {
+      method: "POST",
+    };
+
+    if (data instanceof FormData) {
+      options.body = data;
+    } else {
+      options.headers = {
+        "Content-Type": "application/json",
+      };
+      options.body = JSON.stringify(data);
+    }
+
+    const response = fetchWithErrorHandling(`${this.baseRoute}`, options);
     return response;
   }
 
   async patch(id, data) {
-    const response = fetchWithErrorHandling(`${this.baseRoute}/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    const options = {
+      method: "PATCH",
+    };
+
+    if (data instanceof FormData) {
+      options.body = data;
+    } else {
+      options.headers = {
+        "Content-Type": "application/json",
+      };
+      options.body = JSON.stringify(data);
+    }
+
+    const response = fetchWithErrorHandling(`${this.baseRoute}/${id}`, options);
     return response;
   }
 
   async delete(id) {
     const response = fetchWithErrorHandling(`${this.baseRoute}/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
     return response;
   }

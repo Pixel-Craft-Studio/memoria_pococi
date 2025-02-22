@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import { DELETE, ENDPOINTS, UPDATE } from "../../../api/api_constants";
+import { API_URL, DELETE, ENDPOINTS, UPDATE } from "../../../api/api_constants";
 import { useEffect } from "react";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { useGetAll } from "../../../hooks/useBaseEndpointQueries";
@@ -96,7 +96,7 @@ const MediaCards = ({ setFormData, changeStage, updateSignalState }) => {
                 <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-600 flex justify-center">
                   <img
                     className="max-w-10"
-                    src={item.icon_url}
+                    src={`${API_URL}/image${item.icon_url}`}
                     alt={item.name}
                   />
                 </div>
