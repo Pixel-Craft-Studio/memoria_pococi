@@ -60,6 +60,10 @@ const Sidebar = () => {
                                         <span>Redes Sociales</span>
                                     </Link>
 
+                                    <Link to="/dashboard/perfil" className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700">
+                                        <span>Perfiles</span>
+                                    </Link>
+
                                 </ul>
                             </div>
                         </li>

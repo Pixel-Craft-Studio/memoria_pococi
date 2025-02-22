@@ -64,8 +64,8 @@ const Media = () => {
             stage === CREATE
               ? "Enviar"
               : stage === UPDATE
-              ? "Actualizar"
-              : "Eliminar"
+                ? "Actualizar"
+                : "Eliminar"
           }
           cancelable
           onCancel={handleCancelModal}

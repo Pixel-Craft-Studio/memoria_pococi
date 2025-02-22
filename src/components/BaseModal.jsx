@@ -10,9 +10,9 @@ const BaseModal = ({
   cancelText = "",
   submitText = "",
   modalType = "default",
-  onClose = () => {},
-  onCancel = () => {},
-  onSend = () => {},
+  onClose = () => { },
+  onCancel = () => { },
+  onSend = () => { },
 }) => {
   const [position, setPosition] = useState({
     x: window.innerWidth / 2 - 200,
@@ -63,21 +63,17 @@ const BaseModal = ({
     onSend();
   };
 
-  const buttonClassDefault = `cursor-pointer px-4 py-2 text-sm ${
-    !enabledSend
+  const buttonClassDefault = `cursor-pointer px-4 py-2 text-sm ${!enabledSend
       ? "bg-gray-400 text-gray-600 cursor-not-allowed"
       : "bg-blue-600 text-white"
-  } rounded hover:${!enabledSend ? "" : "bg-blue-700"} dark:${
-    !enabledSend ? "" : "bg-blue-500 dark:hover:bg-blue-600"
-  } transition-colors duration-200`;
+    } rounded hover:${!enabledSend ? "" : "bg-blue-700"} dark:${!enabledSend ? "" : "bg-blue-500 dark:hover:bg-blue-600"
+    } transition-colors duration-200`;
 
-  const buttonClassDelete = `cursor-pointer px-4 py-2 text-sm ${
-    !enabledSend
+  const buttonClassDelete = `cursor-pointer px-4 py-2 text-sm ${!enabledSend
       ? "bg-gray-400 text-gray-600 cursor-not-allowed"
       : "bg-red-600 text-white"
-  } rounded hover:${!enabledSend ? "" : "bg-red-700"} dark:${
-    !enabledSend ? "" : "bg-red-500 dark:hover:bg-red-600"
-  } transition-colors duration-200`;
+    } rounded hover:${!enabledSend ? "" : "bg-red-700"} dark:${!enabledSend ? "" : "bg-red-500 dark:hover:bg-red-600"
+    } transition-colors duration-200`;
 
   let mainButtonClass = buttonClassDefault;
   let mainButtonText = submitText || "Enviar";
@@ -102,7 +98,7 @@ const BaseModal = ({
             {/* Franja superior para arrastrar */}
 
             <div
-              className="bg-gray-200 dark:bg-gray-700 p-2.5 rounded-t-lg cursor-grab active:cursor-grabbing"
+              className="bg-gray-200 dark:bg-gray-700 p-4 rounded-t-lg cursor-grab active:cursor-grabbing"
               onMouseDown={handleMouseDown}
             >
               <div className="h-2" />
@@ -113,7 +109,7 @@ const BaseModal = ({
               onClick={handleOnClose}
               className="cursor-pointer absolute top-0.5 right-0.5 text-gray-600 hover:text-gray-800 
                         dark:text-gray-300 dark:hover:text-white
-                        p-1 transition-colors duration-200 rounded-md bg-red-600 "
+                        p-1 m-2 transition-colors duration-200 rounded-md bg-red-500 hover:bg-red-700 "
             >
               <AiOutlineClose className="w-4 h-4 fill-white" />
             </button>
@@ -127,8 +123,8 @@ const BaseModal = ({
                 <button
                   onClick={handleOnCancel}
                   className="cursor-pointer px-4 py-2 text-sm bg-gray-300 text-gray-800 rounded 
-                          hover:bg-gray-400 dark:bg-gray-600 dark:text-gray-200 
-                          dark:hover:bg-gray-500 transition-colors duration-200"
+                          hover:bg-red-400 dark:bg-gray-600 dark:text-gray-200 
+                          dark:hover:bg-red-400 transition-colors duration-300"
                 >
                   {cancelText || "Cancelar"}
                 </button>
