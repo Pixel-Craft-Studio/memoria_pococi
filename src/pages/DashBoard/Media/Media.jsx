@@ -1,12 +1,12 @@
-import MediaTable from "./MediaTable";
-import MediaForm from "./MediaForm";
+import MediaTable from "../Components/MediaTable";
+import MediaForm from "../Components/MediaForm";
 import { useMediaForm } from "./hooks/useMediaForm";
 import { CREATE, UPDATE } from "../../../api/api_constants";
 import BaseModal from "../../../components/BaseModal";
 import AlertModal from "../../../components/AlertModal";
 import Sidebar from "../Sidebar";
 import { useMediaApi } from "./hooks/useMediaApi";
-import MediaCards from "./MediaCards";
+import MediaCards from "../Components/MediaCards";
 
 const Media = () => {
   const {

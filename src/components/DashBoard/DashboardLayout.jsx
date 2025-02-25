@@ -2,7 +2,7 @@
 const DashboardLayout = ({ children }) => {
     return (
       <div className="dashboard-container">
-        <main className="content">{children}</main>
+        <main className="content flex flex-col">{children}</main>
       </div>
     );
   };

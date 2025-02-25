@@ -4,7 +4,8 @@ import Contact from "../pages/Contact";
 import About from "../pages/About";
 import Team from "../pages/Teams";
 import Layout from "../components/Layout";
-import DashboardRoutes from "./DashBoardRoutes"; // Importamos las rutas del Dashboard
+import DashboardRoutes from "./DashBoardRoutes";
+import InitialTimeline from "../pages/InitialTimeline";
 
 const AppRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
         <Route path="/contact" element={<Layout><Contact /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />
         <Route path="/team" element={<Layout><Team /></Layout>} />
+        <Route path="/linea-inicial" element={<Layout><InitialTimeline /></Layout>} />
 
         {/* Rutas del Dashboard independientes */}
         <Route path="/dashboard/*" element={<DashboardRoutes />} />
