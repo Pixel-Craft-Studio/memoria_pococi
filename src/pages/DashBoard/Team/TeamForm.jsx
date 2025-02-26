@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { DELETE } from "../../../api/api_constants";
 
-const PerfilForm = ({ stage, formData, handleChange }) => {
+const TeamForm = ({ stage, formData, handleChange }) => {
     const isDeleteMode = stage === DELETE;
     const isEditMode = !isDeleteMode && formData.id; // Si hay un ID, es actualización
 
@@ -18,7 +18,7 @@ const PerfilForm = ({ stage, formData, handleChange }) => {
                 type="text"
                 name="first_name"
                 id="first_name"
-                value={formData.first_name}
+                value={formData.name}
                 onChange={handleChange}
                 disabled={isDeleteMode}
                 className="w-full p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
@@ -89,11 +89,11 @@ const PerfilForm = ({ stage, formData, handleChange }) => {
     );
 };
 
-PerfilForm.propTypes = {
+TeamForm.propTypes = {
     stage: PropTypes.string.isRequired,
     formData: PropTypes.shape({
         id: PropTypes.string, // Se usa para identificar edición
-        first_name: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
         last_name: PropTypes.string,
         email: PropTypes.string,
         confirm: PropTypes.string,
@@ -102,4 +102,4 @@ PerfilForm.propTypes = {
     handleChange: PropTypes.func.isRequired,
 };
 
-export default PerfilForm;
+export default TeamForm;

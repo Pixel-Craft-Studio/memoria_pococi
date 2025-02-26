@@ -5,6 +5,7 @@ import DashboardHome from "../pages/DashBoard/Home"; // Página principal del Da
 import About from "../pages/DashBoard/About";
 import Media from "../pages/DashBoard/Media/Media";
 import Perfil from "../pages/DashBoard/Perfil/Perfil";
+import Team from "../pages/DashBoard/Team/Team";
 
 const DashboardRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const DashboardRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/media" element={<Media />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/team" element={<Team />} />
       </Routes>
     </DashboardLayout>
   );

@@ -1,14 +1,15 @@
-import PerfilTable from "./PerfilTable";
-import PerfilForm from "./PerfilForm";
-import { usePerfilForm } from "./hooks/usePerfilForm";
+
+import TeamForm from "./TeamForm";
+import { useTeamForm } from "./hooks/useTeamForm";
 import { CREATE, UPDATE } from "../../../api/api_constants";
 import BaseModal from "../../../components/BaseModal";
 import AlertModal from "../../../components/AlertModal";
 import Sidebar from "../Sidebar";
-import { usePerfilApi } from "./hooks/usePerfilApi";
+import { useTeamApi } from "./hooks/useTeamApi";
+import TeamCards from "./useTeamCard";
 
 
-const Perfil = () => {
+const Equipo = () => {
     const {
         formData,
         setFormData,
@@ -21,10 +22,10 @@ const Perfil = () => {
         handleCancelModal,
         changeStage,
         isValidForm,
-    } = usePerfilForm();
+    } = useTeamForm();
 
     const { updateSignal, setUpdateSignal, alert, setAlert, handleSendModal } =
-        usePerfilApi(setIsModalOpen, setFormData);
+        useTeamApi(setIsModalOpen, setFormData);
 
     return (
         <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white duration-300 ease-in-out">
@@ -32,7 +33,7 @@ const Perfil = () => {
 
             <div className="p-4 w-full">
                 <div className="flex justify-between p-4">
-                    <div>Perfiles existentes</div>
+                    <div>Equipo de trabajo.</div>
                     <button
                         type="button"
                         className="cursor-pointer px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-700 transition-colors duration-200"
@@ -42,13 +43,12 @@ const Perfil = () => {
                     </button>
                 </div>
 
-                < PerfilTable
+                <TeamCards
                     setFormData={setFormData}
                     setAlert={setAlert}
                     changeStage={changeStage}
                     updateSignalState={[updateSignal, setUpdateSignal]}
                 />
-
 
                 <BaseModal
                     enabledSend={isValidForm()}
@@ -66,7 +66,7 @@ const Perfil = () => {
                     onClose={handleCloseModal}
                     onSend={() => handleSendModal(stage, formData)}
                 >
-                    <PerfilForm
+                    <TeamForm
                         stage={stage}
                         formData={formData}
                         handleChange={handleChange}
@@ -83,4 +83,4 @@ const Perfil = () => {
     );
 };
 
-export default Perfil;
+export default Equipo;
