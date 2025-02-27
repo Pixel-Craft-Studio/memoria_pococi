@@ -42,15 +42,15 @@ export const useTeamForm = () => {
 
   const isValidForm = () => {
     if (stage === DELETE) {
-      return formData.confirm === formData.email;
+      return formData.confirm === formData.role;
     }
 
     if (stage === CREATE) {
-      return formData.first_name !== "" && formData.first_name !== "";
+      return formData.name !== "" && formData.description !== "" && formData.role !== "";
     }
 
     if (stage === UPDATE) {
-      return formData.first_name !== "" && formData.first_name !== "";
+      return formData.first_name !== "" && formData.description !== "" && formData.role !== "";;
     }
     return false;
   };

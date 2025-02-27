@@ -19,12 +19,12 @@ const TeamsCards = ({ setFormData, changeStage, updateSignalState }) => {
   const [updateSignal, setUpdateSignal] = updateSignalState;
 
   const handleEdit = (item) => {
-    setFormData({ id: item.id, first_name: item.first_name,last_name: item.last_name, email: item.email });
+    setFormData({ id: item.id, name: item.name,description: item.description, role: item.role });
     changeStage(UPDATE);
   };
 
   const handleDelete = (item) => {
-    setFormData({ id: item.id, firt_name: item.firt_name, last_name: item.last_name, email: item.email });
+    setFormData({ id: item.id, name: item.name, description: item.description, role: item.role });
     changeStage(DELETE);
   };
 
