@@ -4,7 +4,6 @@ import { usePerfilForm } from "./hooks/usePerfilForm";
 import { CREATE, UPDATE } from "../../../api/api_constants";
 import BaseModal from "../../../components/BaseModal";
 import AlertModal from "../../../components/AlertModal";
-import Sidebar from "../Sidebar";
 import { usePerfilApi } from "./hooks/usePerfilApi";
 
 
@@ -27,9 +26,7 @@ const Perfil = () => {
         usePerfilApi(setIsModalOpen, setFormData);
 
     return (
-        <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white duration-300 ease-in-out">
-            <Sidebar />
-
+        <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
             <div className="p-4 w-full">
                 <div className="flex justify-between p-4">
                     <div>Perfiles existentes</div>

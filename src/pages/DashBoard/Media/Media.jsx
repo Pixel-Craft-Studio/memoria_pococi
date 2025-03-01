@@ -1,10 +1,9 @@
-import MediaTable from "../Components/MediaTable";
+//import MediaTable from "../Components/MediaTable";
 import MediaForm from "../Components/MediaForm";
 import { useMediaForm } from "./hooks/useMediaForm";
 import { CREATE, UPDATE } from "../../../api/api_constants";
 import BaseModal from "../../../components/BaseModal";
 import AlertModal from "../../../components/AlertModal";
-import Sidebar from "../Sidebar";
 import { useMediaApi } from "./hooks/useMediaApi";
 import MediaCards from "../Components/MediaCards";
 
@@ -27,8 +26,7 @@ const Media = () => {
     useMediaApi(setIsModalOpen, setFormData);
 
   return (
-    <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white duration-300 ease-in-out">
-      <Sidebar />
+    <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
 
       <div className="p-4 w-full">
         <div className="flex justify-between p-4">
@@ -42,13 +40,13 @@ const Media = () => {
           </button>
         </div>
 
-        <MediaTable
+       {/* <MediaTable
           setFormData={setFormData}
           setAlert={setAlert}
           changeStage={changeStage}
           updateSignalState={[updateSignal, setUpdateSignal]}
         />
-
+        */}
         <MediaCards
           setFormData={setFormData}
           setAlert={setAlert}

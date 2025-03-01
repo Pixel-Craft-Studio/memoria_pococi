@@ -4,7 +4,6 @@ import { useTeamForm } from "./hooks/useTeamForm";
 import { CREATE, UPDATE } from "../../../api/api_constants";
 import BaseModal from "../../../components/BaseModal";
 import AlertModal from "../../../components/AlertModal";
-import Sidebar from "../Sidebar";
 import { useTeamApi } from "./hooks/useTeamApi";
 import TeamCards from "./useTeamCard";
 
@@ -28,15 +27,13 @@ const Equipo = () => {
         useTeamApi(setIsModalOpen, setFormData);
 
     return (
-        <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white duration-300 ease-in-out">
-            <Sidebar />
-
+        <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
             <div className="p-4 w-full">
                 <div className="flex justify-between p-4">
                     <div>Equipo de trabajo.</div>
                     <button
                         type="button"
-                        className="cursor-pointer px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-700 transition-colors duration-200"
+                        className="cursor-pointer px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-700"
                         onClick={handleCreate}
                     >
                         Crear

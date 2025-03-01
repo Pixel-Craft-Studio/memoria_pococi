@@ -40,11 +40,11 @@ const MediaCards = ({ setFormData, changeStage, updateSignalState }) => {
   return (
     <div className="p-4">
       {/* Contenedor con tamaño fijo y scroll */}
-      <div className="overflow-auto max-h-96 border border-gray-300 rounded-lg bg-gray-200 dark:bg-gray-800">
+      <div className="overflow-auto max-h-96 border border-gray-300 rounded-lg bg-gray-200 dark:bg-gray-800 ">
         {errorAll && (
-          <tr className="hover:bg-gray-50 dark:hover:bg-gray-600">
+          <tr className="hover:bg-gray-50 dark:hover:bg-gray-600 ">
             <td
-              className="px-4 py-2 border-b border-gray-200 dark:border-gray-600"
+              className="px-4 py-2 border-b border-gray-200 dark:border-gray-600 "
               colSpan={3}
             >
               <div className="flex justify-center gap-3">
@@ -87,7 +87,7 @@ const MediaCards = ({ setFormData, changeStage, updateSignalState }) => {
         )}
 
         {allResponseData && (
-          <div className="flex-wrap flex justify-center gap-5">
+          <div className="flex-wrap flex justify-center gap-5 ">
             {allResponseData.data.map((item) => (
               <div key={item.id} className="bg-gray-100 dark:bg-gray-700 p-4 m-2 rounded-xl">
                 <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-600">

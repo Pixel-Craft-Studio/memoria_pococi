@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
 import { API_URL, ENDPOINTS } from "../../api/api_constants";
 import { useGetById, usePatch } from "../../hooks/useBaseEndpointQueries";
 import { convertJsonToFormData } from "../../api/api_core";
@@ -47,7 +46,7 @@ function About() {
 
   if (isFetching)
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900 bg-opacity-50 z-50">
         <div className="bg-blue-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-2 animate-fade-in">
           <ExclamationCircleIcon className="h-6 w-6" />
           <span>Cargando...</span>
@@ -57,7 +56,7 @@ function About() {
 
   if (errorAll)
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900 bg-opacity-50 z-50">
         <div className="bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-2 animate-fade-in">
           <ExclamationCircleIcon className="h-6 w-6" />
           <span>Algo salió mal. Inténtalo de nuevo.</span>
@@ -66,8 +65,7 @@ function About() {
     );
 
   return (
-    <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white duration-300 ease-in-out">
-      <Sidebar />
+    <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white ">
       <main className="flex-1 min-h-screen max-w-screen-lg mx-auto p-8 overflow-y-auto">
         <h1 className="text-3xl font-bold text-center lg:text-left mb-4">Sobre nosotros</h1>
         <p className="text-gray-600 dark:text-gray-400 text-center lg:text-left mb-8">
