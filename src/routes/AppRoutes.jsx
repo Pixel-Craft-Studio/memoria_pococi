@@ -6,6 +6,8 @@ import Team from "../pages/Teams";
 import Layout from "../components/Layout";
 import DashboardRoutes from "./DashBoardRoutes";
 import InitialTimeline from "../pages/InitialTimeline";
+import Contribute from "../pages/Contribute/Contribute";
+import { ContentProvider } from "../pages/Contribute/ContentContext";
 
 const AppRoutes = () => {
   return (
@@ -13,11 +15,11 @@ const AppRoutes = () => {
       <Routes>
         {/* Rutas con el Layout principal */}
         <Route path="/" element={<Layout><HomePage /></Layout>} />
-        <Route path="/contact" element={<Layout><Contact /></Layout>} />
+        <Route path="/contacto" element={<Layout><Contact /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />
-        <Route path="/team" element={<Layout><Team /></Layout>} />
+        <Route path="/equipo" element={<Layout><Team /></Layout>} />
         <Route path="/linea-inicial" element={<Layout><InitialTimeline /></Layout>} />
-
+        <Route path="/aportar" element={<Layout><ContentProvider><Contribute /></ContentProvider></Layout>} />
         {/* Rutas del Dashboard independientes */}
         <Route path="/dashboard/*" element={<DashboardRoutes />} />
       </Routes>

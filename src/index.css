@@ -2,11 +2,16 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+html {
+  overflow-x: hidden;
+  margin-right: calc(-1 * (100vw - 100%));
+}
+
 main{
   font-family: roboto, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+input, h1, h2, h3, h4, h5, h6 {
   font-family: montserrat;
 }
 

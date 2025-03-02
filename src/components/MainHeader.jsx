@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className=" w-[100vw] flex justify-center items-center bg-gray-300">
+    <div className="  flex justify-center items-center bg-gray-300">
       <div className="container flex justify-around items-center  w-full z-10">
         <Link to={"/"}>
           <img
@@ -25,7 +25,7 @@ const Footer = () => {
             Línea de tiempo
           </Link>
 
-          <Link className="text-gray-500 hover:text-green-800" to="/">
+          <Link className="text-gray-500 hover:text-green-800" to="/aportar">
             Aportar
           </Link>
 
