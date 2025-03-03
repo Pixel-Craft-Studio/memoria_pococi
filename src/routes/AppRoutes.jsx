@@ -17,7 +17,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Layout><HomePage /></Layout>} />
         <Route path="/contacto" element={<Layout><Contact /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />
-        <Route path="/equipo" element={<Layout><Team /></Layout>} />
+        <Route path="/team" element={<Layout><Team /></Layout>} />
         <Route path="/linea-inicial" element={<Layout><InitialTimeline /></Layout>} />
         <Route path="/aportar" element={<Layout><ContentProvider><Contribute /></ContentProvider></Layout>} />
         {/* Rutas del Dashboard independientes */}
