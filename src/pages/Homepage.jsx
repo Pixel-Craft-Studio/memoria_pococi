@@ -1,7 +1,7 @@
 const HomePage = () => {
   return (
     <>
-      <div className="w-full">
+      <div className="">
         <img
           className="h-60 w-full object-cover"
           src="/imgs/banners/home1.jpg"

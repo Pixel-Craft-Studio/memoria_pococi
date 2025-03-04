@@ -18,10 +18,11 @@ const timelineData = [
   // Puedes agregar más objetos aquí para más eventos en la línea de tiempo
 ];
 
+// eslint-disable-next-line react/prop-types
 const TimelineItem = ({ year, title, description, image, isReversed }) => {
   return (
     <div
-      className={`flex justify-between h-auto md:h-[240px] flex-col md:flex-row ${
+      className={`flex justify-between flex-col md:flex-row ${
         isReversed ? "md:flex-row-reverse" : ""
       }`}
     >

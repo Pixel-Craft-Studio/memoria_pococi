@@ -9,16 +9,52 @@ import Team from "../pages/DashBoard/Team/Team";
 
 const DashboardRoutes = () => {
   return (
-    <DashboardLayout>
-      <Routes>
-        <Route path="/" element={<DashboardHome />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/media" element={<Media />} />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/team" element={<Team />} />
-      </Routes>
-    </DashboardLayout>
+    <Routes>
+      {/* Login fuera del DashboardLayout */}
+      <Route path="/login" element={<Login />} />
+
+      {/* Rutas protegidas dentro del DashboardLayout */}
+      <Route
+        path="/"
+        element={
+          <DashboardLayout>
+            <DashboardHome />
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <DashboardLayout>
+            <About />
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="/media"
+        element={
+          <DashboardLayout>
+            <Media />
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="/perfil"
+        element={
+          <DashboardLayout>
+            <Perfil />
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="/team"
+        element={
+          <DashboardLayout>
+            <Team />
+          </DashboardLayout>
+        }
+      />
+    </Routes>
   );
 };
 

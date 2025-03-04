@@ -19,7 +19,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="flex items-center justify-center m-auto min-w-[400px] w-[100vw] bg-gray-100 animate__animated animate__fadeIn">
+    <div className="flex p-10 items-center justify-center m-auto min-w-[400px] w-[100vw] bg-gray-100 animate__animated animate__fadeIn">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md"

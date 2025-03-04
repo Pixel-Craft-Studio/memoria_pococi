@@ -15,7 +15,7 @@ const AppRoutes = () => {
       <Routes>
         {/* Rutas con el Layout principal */}
         <Route path="/" element={<Layout><HomePage /></Layout>} />
-        <Route path="/contacto" element={<Layout><Contact /></Layout>} />
+        <Route path="/contact" element={<Layout><Contact /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />
         <Route path="/team" element={<Layout><Team /></Layout>} />
         <Route path="/linea-inicial" element={<Layout><InitialTimeline /></Layout>} />

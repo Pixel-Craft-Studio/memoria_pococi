@@ -46,7 +46,7 @@ function About() {
 
   if (isFetching)
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900 bg-opacity-50 z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900 bg-opacity-50">
         <div className="bg-blue-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-2 animate-fade-in">
           <ExclamationCircleIcon className="h-6 w-6" />
           <span>Cargando...</span>
@@ -56,7 +56,7 @@ function About() {
 
   if (errorAll)
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900 bg-opacity-50 z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900 bg-opacity-50">
         <div className="bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-2 animate-fade-in">
           <ExclamationCircleIcon className="h-6 w-6" />
           <span>Algo salió mal. Inténtalo de nuevo.</span>

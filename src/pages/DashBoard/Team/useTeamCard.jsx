@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { API_URL, DELETE, ENDPOINTS, UPDATE } from "../../../api/api_constants";
+import { API_URL, DELETE, ENDPOINTS, UPDATE, CREATE } from "../../../api/api_constants";
 import { useEffect } from "react";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { useGetAll } from "../../../hooks/useBaseEndpointQueries";
@@ -27,32 +27,52 @@ const TeamsCards = ({ setFormData, changeStage, updateSignalState }) => {
     changeStage(DELETE);
   };
 
+   const handleCreateFirst = () => {
+      changeStage(CREATE)
+    }
+
   return (
-    <div className="h-screen overflow-y-auto p-6 bg-gray-100 dark:bg-gray-900">
+    <div className=" overflow-y-auto p-6 bg-gray-100 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto rounded-lg bg-white dark:bg-gray-800 p-6 shadow-md">
         {errorAll && (
-          <div className="flex justify-center items-center gap-3 text-red-500">
-            <PiWarning size={24} /> Falló la carga de datos
+          <div className="fixed ml-50 inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900 bg-opacity-50">
+            <div className="bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-2 animate-fade-in">
+              <PiWarning size={24} />
+              <span>Algo salió mal. Inténtalo de nuevo.</span>
+            </div>
           </div>
         )}
 
         {isFetchingAll && (
-          <div className="flex justify-center items-center gap-3 text-gray-500">
-            <FiLoader className="animate-spin" size={24} /> Cargando...
+          <div className="fixed ml-50 inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900 bg-opacity-50">
+            <div className="bg-blue-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-2 animate-fade-in">
+              <FiLoader className="animate-[spin_2s_linear_infinite]" size={24} />
+              <span>Cargando...</span>
+            </div>
           </div>
         )}
 
         {allResponseData && allResponseData.data.length === 0 && (
-          <div className="flex justify-center items-center gap-3 text-gray-500">
-            <IoMdInformationCircleOutline size={24} /> No hay registros
+          <div className="flex flex-col fixed ml-50 inset-0 items-center justify-center bg-gray-100 dark:bg-gray-900 bg-opacity-50">
+            <div className="bg-gray-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-2 animate-fade-in">
+              <IoMdInformationCircleOutline size={24} />
+              <span>No hay registros.</span>
+            </div>
+            <button
+                onClick={handleCreateFirst}
+                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all"
+                >
+                  Crear
+                </button>
           </div>
         )}
+
 
         {allResponseData && (
           <div className="flex flex-wrap justify-center gap-6">
             {allResponseData.data.map((item) => (
-              <div 
-                key={item.id} 
+              <div
+                key={item.id}
                 className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg w-60 hover:shadow-2xl hover:scale-105"
               >
                 <div className="flex justify-center mb-4">

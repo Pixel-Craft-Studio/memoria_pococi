@@ -57,50 +57,48 @@ const MediaTable = ({ setFormData, changeStage, updateSignalState }) => {
           </thead>
 
           <tbody>
-            {errorAll && (
-              <tr className="hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td
-                  className="px-4 py-2 border-b border-gray-200 dark:border-gray-600"
-                  colSpan={3}
-                >
-                  <div className="flex justify-center gap-3">
-                    <PiWarning size={24}></PiWarning>
-                    Falló la carga de datos
-                  </div>
-                </td>
-              </tr>
-            )}
+{errorAll && (
+  <tr className="hover:bg-gray-50 dark:hover:bg-gray-600">
+    <td
+      className="px-4 py-2 border-b border-gray-200 dark:border-gray-600"
+      colSpan={3}
+    >
+      <div className="bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg flex justify-center gap-3 items-center animate-fade-in">
+        <PiWarning size={24} />
+        <span>Falló la carga de datos</span>
+      </div>
+    </td>
+  </tr>
+)}
 
-            {isFetchingAll && (
-              <tr className="hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td
-                  className="px-4 py-2 border-b border-gray-200 dark:border-gray-600"
-                  colSpan={3}
-                >
-                  <div className="flex justify-center gap-3">
-                    <FiLoader
-                      className="animate-[spin_2s_linear_infinite]"
-                      size={24}
-                    />{" "}
-                    Cargando
-                  </div>
-                </td>
-              </tr>
-            )}
+{isFetchingAll && (
+  <tr className="hover:bg-gray-50 dark:hover:bg-gray-600">
+    <td
+      className="px-4 py-2 border-b border-gray-200 dark:border-gray-600"
+      colSpan={3}
+    >
+      <div className="bg-blue-500 text-white px-6 py-4 rounded-lg shadow-lg flex justify-center gap-3 items-center animate-fade-in">
+        <FiLoader className="animate-[spin_2s_linear_infinite]" size={24} />
+        <span>Cargando...</span>
+      </div>
+    </td>
+  </tr>
+)}
 
-            {allResponseData && allResponseData.data.length === 0 && (
-              <tr className="hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td
-                  className="px-4 py-2 border-b border-gray-200 dark:border-gray-600"
-                  colSpan={3}
-                >
-                  <div className="flex justify-center gap-3 items-center">
-                    <IoMdInformationCircleOutline className="" size={24} /> No
-                    hay registros
-                  </div>
-                </td>
-              </tr>
-            )}
+{allResponseData && allResponseData.data.length === 0 && (
+  <tr className="hover:bg-gray-50 dark:hover:bg-gray-600">
+    <td
+      className="px-4 py-2 border-b border-gray-200 dark:border-gray-600"
+      colSpan={3}
+    >
+      <div className="bg-gray-500 text-white px-6 py-4 rounded-lg shadow-lg flex justify-center gap-3 items-center animate-fade-in">
+        <IoMdInformationCircleOutline size={24} />
+        <span>No hay registros</span>
+      </div>
+    </td>
+  </tr>
+)}
+
 
             {allResponseData &&
               allResponseData.data.map((item) => (
