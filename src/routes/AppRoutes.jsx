@@ -8,12 +8,14 @@ import DashboardRoutes from "./DashBoardRoutes";
 import InitialTimeline from "../pages/InitialTimeline";
 import Contribute from "../pages/Contribute/Contribute";
 import { ContentProvider } from "../pages/Contribute/ContentContext";
+import Error404 from "../pages/404";
 
 const AppRoutes = () => {
   return (
     <Router>
       <Routes>
         {/* Rutas con el Layout principal */}
+        <Route path="/*" element={<Layout><Error404 /></Layout>}/>
         <Route path="/" element={<Layout><HomePage /></Layout>} />
         <Route path="/contact" element={<Layout><Contact /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />

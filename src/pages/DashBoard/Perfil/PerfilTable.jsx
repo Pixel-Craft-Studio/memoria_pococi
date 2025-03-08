@@ -16,10 +16,12 @@ const PerfilTable = ({ setFormData, changeStage, updateSignalState }) => {
     refetch,
   } = useGetAll(ENDPOINTS.PROFILES);
 
+  console.log(allResponseData);
   const [updateSignal, setUpdateSignal] = updateSignalState;
 
+
   const handleEdit = (item) => {
-    setFormData({ id: item.id, first_name: item.first_name, last_name: item.last_name, email: item.email });
+    setFormData({ id: item.id, first_name: item.first_name, last_name: item.last_name, email: item.email, is_active: item.is_active });
     changeStage(UPDATE);
   };
 
@@ -44,7 +46,7 @@ const PerfilTable = ({ setFormData, changeStage, updateSignalState }) => {
   return (
     <div className="p-4">
       {/* Contenedor con tamaño fijo y scroll */}
-      <div className="overflow-auto max-h-96 border border-gray-300 rounded-lg">
+      <div className="overflow-auto max-h-96 rounded-lg">
         <table className="min-w-full bg-white dark:bg-gray-800">
           <thead className="bg-gray-100 dark:bg-gray-700">
             <tr>
@@ -57,9 +59,13 @@ const PerfilTable = ({ setFormData, changeStage, updateSignalState }) => {
               <th className="px-4 py-2 border-b border-gray-200 dark:border-gray-600 text-left w-1/3">
                 Correo
               </th>
-              <th className="px-4 py-2 border-b border-gray-200 dark:border-gray-600 text-right w-1/3">
+              <th className="px-4 py-2 border-b border-gray-200 dark:border-gray-600 text-center w-1/3">
                 Acciones
               </th>
+              <th className="px-4 py-2 border-b border-gray-200 dark:border-gray-600 text-center w-1/3">
+                Estado
+              </th>
+
 
             </tr>
           </thead>
@@ -90,8 +96,8 @@ const PerfilTable = ({ setFormData, changeStage, updateSignalState }) => {
                   <span>No hay registros.</span>
                 </div>
                 <button
-                onClick={handleCreateFirst}
-                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all"
+                  onClick={handleCreateFirst}
+                  className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all"
                 >
                   Crear
                 </button>
@@ -114,14 +120,8 @@ const PerfilTable = ({ setFormData, changeStage, updateSignalState }) => {
                   <td className="px-4 py-2 border-b border-gray-200 dark:border-gray-600">
                     {item.email}
                   </td>
-                  <td className="flex px-4 py-2 border-b border-gray-200 dark:border-gray-600 text-right">
-                    <button
-                      onClick={() => handleEdit(item)}
-                      className="text-blue-500 hover:text-blue-700 transition-colors duration-200 mr-2 cursor-pointer"
-                      title="Editar"
-                    >
-                      <AiFillEdit size={30} />
-                    </button>
+
+                  <td className="flex px-4 py-2 border-b gap-2 border-gray-200 dark:border-gray-600 text-right">
                     <button
                       onClick={() => handleDelete(item)}
                       className="text-red-500 hover:text-red-700 transition-colors duration-200 cursor-pointer"
@@ -129,6 +129,22 @@ const PerfilTable = ({ setFormData, changeStage, updateSignalState }) => {
                     >
                       <AiFillDelete size={30} />
                     </button>
+                    <button
+                      onClick={() => handleEdit(item)}
+                      className="text-blue-500 hover:text-blue-700 transition-colors duration-200 cursor-pointer"
+                      title="Editar"
+                    >
+                      <AiFillEdit size={30} />
+                    </button>
+                    
+                  </td>
+                  <td className="border-b border-gray-200 dark:border-gray-600">
+                    <div className="flex items-center gap-2 mx-2">
+                      <span
+                        className={`w-3 h-3 rounded-full ${item.is_active ? "bg-green-500" : "bg-red-500"}`}
+                      ></span>
+                      {item.is_active ? "Activo" : "Desactivado"}
+                    </div>
                   </td>
                 </tr>
               ))}

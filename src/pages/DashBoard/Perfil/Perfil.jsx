@@ -67,6 +67,7 @@ const Perfil = () => {
                         stage={stage}
                         formData={formData}
                         handleChange={handleChange}
+                        setFormData={setFormData}
                     />
                 </BaseModal>
 

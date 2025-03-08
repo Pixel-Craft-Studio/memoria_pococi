@@ -14,6 +14,10 @@ function About() {
 
   const [isImageError, setIsImageError] = useState(false);
 
+  const handleImageError = () => {
+    setIsImageError(true);
+  };
+
   const renderLoading = () => (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <BallLoader />
@@ -22,10 +26,6 @@ function About() {
       </p>
     </div>
   );
-
-  const handleImageError = () => {
-    setIsImageError(true);
-  };
 
   const renderError = () => (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -64,10 +64,10 @@ function About() {
           />
         ) : (
           <div
-            className="w-full h-60 flex items-center justify-center animate__animated animate__fadeInUp"
+            className="overflow-hidden flex items-center justify-center animate__animated animate__fadeInUp"
             style={{ animationDelay: "0.5s" }}
           >
-            <AiOutlinePicture className="text-gray-500 w-[300px] h-[300px]" />
+            <AiOutlinePicture className="text-gray-500 w-[200px] h-[200px]" />
           </div>
         )}
       </div>

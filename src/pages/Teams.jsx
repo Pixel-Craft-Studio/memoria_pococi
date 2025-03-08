@@ -8,8 +8,8 @@ import BallLoader from "../components/BallLoader";
 const Team = () => {
   const {
     data: allResponseData,
-    isFetchingAll,
-    errorAll,
+    isFetching: isFetchingAll,
+    error: errorAll,
   } = useGetAll(ENDPOINTS.TEAM_MEMBER);
 
   const renderLoading = () => {
@@ -25,7 +25,7 @@ const Team = () => {
       </>
     );
   };
-
+  
   const renderError = () => {
     return (
       <>
@@ -41,7 +41,6 @@ const Team = () => {
   };
 
   if (isFetchingAll) return renderLoading();
-
   if (errorAll) return renderError();
 
   return (

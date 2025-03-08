@@ -1,14 +1,61 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher";
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
+    fetchLogin();
   };
+
+  const navigate = useNavigate()
+  const [error, setError] = useState("")
+  const [formData, setFormData] = useState(null)
+  const fetchLogin = async () => {
+    const formData = new URLSearchParams();
+    formData.append("username", email);
+    formData.append("password", password);
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8001/login", options);
+      if (!response.ok) {
+        const errorBody = await response.json();
+        throw new Error(`${errorBody.message || "Error desconocido"}`);
+      };
+      const data = await response.json();
+      setFormData(data)
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (formData) {
+      const token = formData.access_token;
+
+      const userData = jwtDecode(token);
+      console.log(userData);
+
+      localStorage.setItem("token", token)
+      localStorage.setItem("usuario", JSON.stringify(userData))
+
+      navigate("/dashboard")
+
+    }
+  }, [formData, navigate])
+
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200 dark:bg-gray-900">
@@ -49,7 +96,7 @@ function Login() {
               required
             />
           </div>
-
+          {error}
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-500 transition duration-300 px-4 py-2 rounded-lg text-white font-semibold"

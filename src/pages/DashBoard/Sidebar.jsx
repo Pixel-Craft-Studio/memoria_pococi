@@ -4,7 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher";
 
 const Sidebar = () => {
-  const location = useLocation(); 
+  const location = useLocation();
+
 
   // Determinar si la sección de configuración está activa
   const isConfigActive = ["/dashboard/about", "/dashboard/media", "/dashboard/perfil", "/dashboard/team"].includes(location.pathname);
@@ -30,6 +31,13 @@ const Sidebar = () => {
 
   // Función para determinar si una ruta está activa
   const isActive = (path) => location.pathname === path ? "bg-gray-300 dark:bg-gray-700" : "";
+
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    window.location.href = "/dashboard/login"; // Redirigir manualmente
+  };
 
   return (
     <div className="flex ml-50 dark:text-white">
@@ -96,10 +104,12 @@ const Sidebar = () => {
 
         {/* Botón de cerrar sesión */}
         <div className="mt-auto">
-          <Link to="/dashboard" className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-red-500 dark:hover:bg-red-600">
+          <button className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-red-500 dark:hover:bg-red-600"
+            onClick={handleLogout}>
             <FiLogOut className="text-lg" />
             <span>Cerrar sesión</span>
-          </Link>
+          </button>
+
         </div>
       </aside>
     </div>

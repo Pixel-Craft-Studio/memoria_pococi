@@ -1,9 +1,20 @@
 import PropTypes from "prop-types";
-import { DELETE } from "../../../api/api_constants";
+import { CREATE, DELETE } from "../../../api/api_constants";
 
-const PerfilForm = ({ stage, formData, handleChange }) => {
+const PerfilForm = ({ stage, formData, handleChange, setFormData }) => {
     const isDeleteMode = stage === DELETE;
     const isEditMode = !isDeleteMode && formData.id; // Si hay un ID, es actualización
+    const isCreateMode = stage === CREATE;
+
+    const toggleState = () => {
+        // Cambiar el valor de is_active entre true y false
+        setFormData(prevData => ({
+            ...prevData,
+            is_active: !prevData.is_active // Alterna el valor entre true y false
+        }));
+        console.log(formData)
+    };
+    
 
     return (
         <form className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg">
@@ -37,6 +48,8 @@ const PerfilForm = ({ stage, formData, handleChange }) => {
                 className="w-full p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
             />
 
+
+
             <label htmlFor="email" className="block text-sm font-medium">
                 Email
             </label>
@@ -49,6 +62,29 @@ const PerfilForm = ({ stage, formData, handleChange }) => {
                 disabled={isDeleteMode}
                 className="w-full p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
             />
+
+            {!isCreateMode && !isDeleteMode && (
+                <>
+                    <label htmlFor="is_active" className="block text-sm font-medium">
+                        Estado
+                    </label>
+                    <button
+                        type="button"
+                        id="is_active"
+                        onClick={toggleState}
+                        className={`w-full p-2 border rounded-md cursor-pointer ${formData.is_active
+                            ? ' bg-red-500'
+                            : 'bg-green-500'
+                            }`}
+                    >
+                        {formData.is_active ? 'Desactivar' : 'Activar'}
+                    </button>
+                </>
+            )}
+
+
+
+
 
             {!isDeleteMode && !isEditMode && (
                 <>
@@ -67,8 +103,6 @@ const PerfilForm = ({ stage, formData, handleChange }) => {
                 </>
 
             )}
-
-
 
             {isDeleteMode && (
                 <div className="mt-4">
@@ -98,8 +132,11 @@ PerfilForm.propTypes = {
         email: PropTypes.string,
         confirm: PropTypes.string,
         password: PropTypes.string,
+        is_active: PropTypes.string,
+        
     }).isRequired,
     handleChange: PropTypes.func.isRequired,
+    setFormData: PropTypes.func.isRequired,
 };
 
 export default PerfilForm;

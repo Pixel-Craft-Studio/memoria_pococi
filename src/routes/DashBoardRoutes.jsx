@@ -1,19 +1,36 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import DashboardLayout from "../components/DashBoard/DashboardLayout";
 import Login from "../pages/DashBoard/Login";
-import DashboardHome from "../pages/DashBoard/Home"; // Página principal del Dashboard
+import DashboardHome from "../pages/DashBoard/Home";
 import About from "../pages/DashBoard/About";
 import Media from "../pages/DashBoard/Media/Media";
 import Perfil from "../pages/DashBoard/Perfil/Perfil";
 import Team from "../pages/DashBoard/Team/Team";
+import Error404Dashboard from "../pages/DashBoard/404Dashboard";
 
 const DashboardRoutes = () => {
+  const token = localStorage.getItem("token");
+  const location = useLocation();
+
+  // Si el usuario no tiene token y no está en /dashboard/login, redirigir
+  if (!token && location.pathname !== "/dashboard/login") {
+    return <Navigate to="/dashboard/login" replace />;
+  }
+
   return (
     <Routes>
-      {/* Login fuera del DashboardLayout */}
-      <Route path="/login" element={<Login />} />
+      {/* Login dentro del Dashboard */}
+      <Route path="login" element={<Login />} />
 
-      {/* Rutas protegidas dentro del DashboardLayout */}
+      {/* Rutas protegidas */}
+      <Route
+        path="/*"
+        element={
+          <DashboardLayout>
+            <Error404Dashboard />
+          </DashboardLayout>
+        }
+      />
       <Route
         path="/"
         element={
@@ -23,7 +40,7 @@ const DashboardRoutes = () => {
         }
       />
       <Route
-        path="/about"
+        path="about"
         element={
           <DashboardLayout>
             <About />
@@ -31,7 +48,7 @@ const DashboardRoutes = () => {
         }
       />
       <Route
-        path="/media"
+        path="media"
         element={
           <DashboardLayout>
             <Media />
@@ -39,7 +56,7 @@ const DashboardRoutes = () => {
         }
       />
       <Route
-        path="/perfil"
+        path="perfil"
         element={
           <DashboardLayout>
             <Perfil />
@@ -47,7 +64,7 @@ const DashboardRoutes = () => {
         }
       />
       <Route
-        path="/team"
+        path="team"
         element={
           <DashboardLayout>
             <Team />
