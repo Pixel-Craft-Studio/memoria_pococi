@@ -7,6 +7,7 @@ import Media from "../pages/DashBoard/Media/Media";
 import Perfil from "../pages/DashBoard/Perfil/Perfil";
 import Team from "../pages/DashBoard/Team/Team";
 import Error404Dashboard from "../pages/DashBoard/404Dashboard";
+import Contact from "../pages/DashBoard/Contact/Contact";
 
 const DashboardRoutes = () => {
   const token = localStorage.getItem("token");
@@ -68,6 +69,14 @@ const DashboardRoutes = () => {
         element={
           <DashboardLayout>
             <Team />
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="/contact"
+        element={
+          <DashboardLayout>
+            <Contact />
           </DashboardLayout>
         }
       />

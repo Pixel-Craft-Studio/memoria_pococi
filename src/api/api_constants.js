@@ -7,6 +7,7 @@ export const ENDPOINTS = {
   CONFIGURATION: "configuration",
   PROFILES: "profiles",
   TEAM_MEMBER: "team-member",
+  CONTACTS: "contact-us",
 };
 
 export const CREATE = "create";

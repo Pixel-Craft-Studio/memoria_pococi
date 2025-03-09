@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { PREVIEW } from "../../../utils/constants";
 import { useContent } from "../ContentContext";
 import { useRef, useEffect } from "react";
+import ExpandableController from "./ExpandableController";
 
 const TemplateZero = ({ index }) => {
   const { getContent, setContent } = useContent();
@@ -36,6 +37,9 @@ const TemplateZero = ({ index }) => {
         index % 2 == 0 ? "bg-neutral-200" : "bg-neutral-100"
       } `}
     >
+
+      <ExpandableController index={index}></ExpandableController>
+
       {/* Container principal - flex-col en móvil, flex-row en desktop */}
       <div
         className={`container flex w-full justify-between items-center flex-col lg:flex-row ${

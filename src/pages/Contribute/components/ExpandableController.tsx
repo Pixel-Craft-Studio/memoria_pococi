@@ -108,6 +108,10 @@ const ExpandableController = ({ index }) => {
     }
   ];
 
+  if (index == 0) {
+    buttons.length = 1;
+  }
+
   return (
     <div className="absolute top-1 right-5 z-50 ">
       

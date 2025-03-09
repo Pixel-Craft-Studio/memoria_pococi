@@ -17,13 +17,17 @@ const AppRoutes = () => {
         {/* Rutas con el Layout principal */}
         <Route path="/*" element={<Layout><Error404 /></Layout>}/>
         <Route path="/" element={<Layout><HomePage /></Layout>} />
-        <Route path="/contact" element={<Layout><Contact /></Layout>} />
+        {/* <Route path="/contact" element={<Layout><Contact /></Layout>} /> */}
+        <Route path="/contacto" element={<Layout><Contact /></Layout>} />
+
         <Route path="/about" element={<Layout><About /></Layout>} />
         <Route path="/team" element={<Layout><Team /></Layout>} />
         <Route path="/linea-inicial" element={<Layout><InitialTimeline /></Layout>} />
         <Route path="/aportar" element={<Layout><ContentProvider><Contribute /></ContentProvider></Layout>} />
         {/* Rutas del Dashboard independientes */}
         <Route path="/dashboard/*" element={<DashboardRoutes />} />
+        <Route path="/*" element={<div>404</div>} />
+        
       </Routes>
     </Router>
   );
