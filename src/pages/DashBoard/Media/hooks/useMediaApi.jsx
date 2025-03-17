@@ -40,7 +40,7 @@ export const useMediaApi = (setIsModalOpen, setFormData, emptyFormData) => {
 
   const handleSendModal = (stage, formData) => {
     if (stage === DELETE) {
-      deleteDataApi(formData.id);
+      deleteDataApi({id: formData.id});
     } else if (stage === CREATE) {
       postDataApi(convertJsonToFormData({ ...formData }));
     } else if (stage === UPDATE) {

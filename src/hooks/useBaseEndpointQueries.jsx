@@ -34,7 +34,7 @@ export const usePost = (endpoint) => {
 // Usando PATCH
 export const usePatch = (endpoint) => {
   return useMutation({
-    mutationFn: ({ id, data }) => getEndpointService(endpoint).patch(id, data),
+    mutationFn: ({ id, data, queryParams="" }) => getEndpointService(endpoint).patch(id, data, queryParams),
     onSuccess: () => {},
     onError: (error) => {
       console.error(error);
@@ -45,7 +45,7 @@ export const usePatch = (endpoint) => {
 // Usando DELETE
 export const useDelete = (endpoint) => {
   return useMutation({
-    mutationFn: (id) => getEndpointService(endpoint).delete(id),
+    mutationFn: ({id, data = {}}) => getEndpointService(endpoint).delete(id, data),
     onSuccess: () => {},
     onError: (error) => {
       console.error(error);
