@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="flex">
           <Link className='p-2 text-center text-neutral-500' to='/team'>Equipo de trabajo</Link>
           <Link className='p-2 text-center text-neutral-500' to='/about'>Sobre este sitio</Link>
-          <Link className='p-2 text-center text-neutral-500' to='/contact'>Contáctenos</Link>
+          <Link className='p-2 text-center text-neutral-500' to='/contacto'>Contáctenos</Link>
         </div>
         <div className="flex flex-col items-center">
           <p className="text-gray-500">© Copyright</p>

@@ -4,7 +4,7 @@ const Contact = () => {
 
 
   return (
-    <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white ">
+    <div className="relative flex min-h-screen pt-15 bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white ">
       <div className="flex-1 ">
         <InboxComponent></InboxComponent>
       </div>
