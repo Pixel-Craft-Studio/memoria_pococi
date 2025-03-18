@@ -65,8 +65,8 @@ function About() {
     );
 
   return (
-    <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white ">
-      <main className="flex-1 min-h-screen max-w-screen-lg mx-auto p-8 overflow-y-auto">
+    <div className="relative flex min-h-screen pt-15 bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white ">
+      <main className="flex-1  max-w-screen-lg mx-auto p-8 overflow-y-auto">
         <h1 className="text-3xl font-bold text-center lg:text-left mb-4">Sobre nosotros</h1>
         <p className="text-gray-600 dark:text-gray-400 text-center lg:text-left mb-8">
           Aquí puedes ver y actualizar la sección sobre nosotros.

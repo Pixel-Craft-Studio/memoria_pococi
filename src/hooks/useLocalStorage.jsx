@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function useLocalStorage(key, initialValue) {
-
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
@@ -13,12 +12,31 @@ function useLocalStorage(key, initialValue) {
 
   useEffect(() => {
     try {
-      const valueToStore = storedValue;
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      window.localStorage.setItem(key, JSON.stringify(storedValue));
+      window.dispatchEvent(new Event("localStorageUpdate"));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }, [key, storedValue]);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      try {
+        const item = window.localStorage.getItem(key);
+        setStoredValue(item ? JSON.parse(item) : initialValue);
+      } catch {
+        setStoredValue(initialValue);
+      }
+    };
+
+    window.addEventListener("localStorageUpdate", handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("localStorageUpdate", handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [key, initialValue]);
 
   return [storedValue, setStoredValue];
 }

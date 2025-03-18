@@ -272,16 +272,16 @@ const handleEmailClick = (email) => {
   });
 
   return (
-    <div className="flex h-screen dark:bg-gray-900 px-10 py-6">
-      <div className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-4 flex flex-col shadow-xl">
-        <button className="bg-indigo-700 text-white py-3 px-4 rounded font-medium mb-6">
+    <div className="md:flex h-[90vh] dark:bg-gray-900 px-10 py-6">
+      <div className="md:w-55 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-4  md:flex-col shadow-xl">
+        <button className="bg-indigo-700 text-white py-3 px-4 rounded font-medium mb-6 w-full">
           Contactos
         </button>
 
-        <div className="space-y-1">
+        <div className="space-y-1 md:block flex-wrap flex justify-evenly">
           <div
             onClick={handleNewEmails}
-            className={`flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
+            className={`flex items-center px-3 py-2 w-38 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
               currentMessages === "new" ? "bg-gray-200 dark:bg-indigo-500" : ""
             }`}
           >
@@ -290,7 +290,7 @@ const handleEmailClick = (email) => {
           </div>
           <div
             onClick={handleReadEmails}
-            className={`flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
+            className={`flex items-center px-3 py-2 w-38 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
               currentMessages === "readed"
                 ? "bg-gray-200 dark:bg-indigo-500"
                 : ""
@@ -302,7 +302,7 @@ const handleEmailClick = (email) => {
 
           <div
             onClick={handleRespondedEmails}
-            className={`flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
+            className={`flex items-center px-3 py-2 w-38 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
               currentMessages === "responded"
                 ? "bg-gray-200 dark:bg-indigo-500"
                 : ""
@@ -314,7 +314,7 @@ const handleEmailClick = (email) => {
 
           <div
             onClick={handleArchivedEmails}
-            className={`flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
+            className={`flex items-center px-3 py-2 w-38 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
               currentMessages === "archived"
                 ? "bg-gray-200 dark:bg-indigo-500"
                 : ""
@@ -326,7 +326,7 @@ const handleEmailClick = (email) => {
 
           <div
             onClick={handleDeletedEmails}
-            className={`flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
+            className={`flex items-center px-3 py-2 w-38 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
               currentMessages === "deleted"
                 ? "bg-gray-200 dark:bg-indigo-500"
                 : ""
@@ -339,10 +339,10 @@ const handleEmailClick = (email) => {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col shadow-xl">
+      <div className="flex-1 flex flex-col shadow-xl min-h-[50vh]">
         {/* Toolbar */}
-        <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-2 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+        <div className="bg-white dark:bg-gray-800 border-b flex-col-reverse gap-1 md:flex-row border-gray-200 dark:border-gray-700 px-4 py-2 flex items-center justify-evenly">
+          <div className="flex items-center space-x-2 md:w-fit">
             <CustomCheckBox
               key="all"
               onCheckChange={handleSelectAll}
@@ -364,7 +364,7 @@ const handleEmailClick = (email) => {
             </button>
           </div>
 
-          <div className="flex items-center flex-1 mx-4">
+          <div className="flex items-center flex-1 mx-4 w-full">
             <div className="relative flex-1">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <FaSearch className="h-5 w-5 text-gray-400 dark:text-gray-500" />
@@ -372,7 +372,7 @@ const handleEmailClick = (email) => {
               <input
                 type="text"
                 placeholder="Buscar correo..."
-                className="block w-full pl-10 pr-3 py-2 border bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white rounded-md leading-5 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="block w-full pl-10 pr-3 py-2 border bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white rounded-md leading-5 focus:outline-none focus:ring-1 focus:ring-indigo-500 "
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
@@ -401,7 +401,7 @@ const handleEmailClick = (email) => {
           )}
 
           {!errorAll && !isFetchingAll && !isDeleting && !isPatching && filteredEmails.length === 0 && (
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center h-full mt-10 md:mt-0">
               <p className="text-gray-400 text-xl font-semibold">
                 {searchQuery.trim()
                   ? "No se encontraron resultados"

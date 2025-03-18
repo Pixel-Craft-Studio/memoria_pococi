@@ -1,11 +1,13 @@
 import Sidebar from "../../pages/DashBoard/Sidebar";
+import DashboardHeader from "../DashboardHeader";
 
 // eslint-disable-next-line react/prop-types
 const DashboardLayout = ({ children }) => {
     return (
       <div>
+        <DashboardHeader></DashboardHeader>
         <Sidebar />
-        <main className="ml-50">{children}</main>
+        <main className="md:ml-50">{children}</main>
         <Sidebar />
       </div>
     );
