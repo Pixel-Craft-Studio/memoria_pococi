@@ -8,7 +8,7 @@ const Sidebar = () => {
 
 
   // Determinar si la sección de configuración está activa
-  const isConfigActive = ["/dashboard/about", "/dashboard/media", "/dashboard/perfil", "/dashboard/team"].includes(location.pathname);
+  const isConfigActive = ["/dashboard/about", "/dashboard/media", "/dashboard/perfil", "/dashboard/team", "/dashboard/contact"].includes(location.pathname);
 
   const [isConfigOpen, setIsConfigOpen] = useState(() => {
     return localStorage.getItem("isConfigOpen") === "true" && isConfigActive;
@@ -87,6 +87,9 @@ const Sidebar = () => {
 
                   <Link to="/dashboard/team" className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive("/dashboard/team")}`}>
                     <span>Equipo de trabajo</span>
+                  </Link>
+                  <Link to="/dashboard/contact" className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive("/dashboard/contact")}`}>
+                    <span>Mensajes</span>
                   </Link>
                 </ul>
               </div>

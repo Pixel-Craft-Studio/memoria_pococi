@@ -2,10 +2,10 @@ import { useState } from "react";
 import { CREATE, DELETE, UPDATE } from "../../../../api/api_constants";
 
 const emptyFormData = {
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  password: "",
 };
 
 export const usePerfilForm = () => {
