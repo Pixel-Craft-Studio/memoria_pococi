@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher";
 import { jwtDecode } from "jwt-decode";
 
@@ -11,9 +11,9 @@ function Login() {
     fetchLogin();
   };
 
-  const navigate = useNavigate()
-  const [error, setError] = useState("")
-  const [formData, setFormData] = useState(null)
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState(null);
   const fetchLogin = async () => {
     const formData = new URLSearchParams();
     formData.append("username", email);
@@ -32,9 +32,9 @@ function Login() {
       if (!response.ok) {
         const errorBody = await response.json();
         throw new Error(`${errorBody.message || "Error desconocido"}`);
-      };
+      }
       const data = await response.json();
-      setFormData(data)
+      setFormData(data);
     } catch (error) {
       setError(error.message);
     }
@@ -47,15 +47,12 @@ function Login() {
       const userData = jwtDecode(token);
       console.log(userData);
 
-      localStorage.setItem("token", token)
-      localStorage.setItem("usuario", JSON.stringify(userData))
+      localStorage.setItem("token", token);
+      localStorage.setItem("userData", JSON.stringify(userData));
 
-      navigate("/dashboard")
-
+      navigate("/dashboard");
     }
-  }, [formData, navigate])
-
-
+  }, [formData, navigate]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200 dark:bg-gray-900">
@@ -68,7 +65,7 @@ function Login() {
           Inicia sesión en tu cuenta
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 relative">
           <div>
             <label className="block text-gray-700 dark:text-gray-300 text-sm mb-1">
               Correo Electrónico
@@ -89,13 +86,19 @@ function Login() {
             </label>
             <input
               type="password"
-              className="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-900 mb-4 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
+          <Link
+            to="/dashboard/recovery"
+            className="text-blue-500 hover:underline absolute right-0 bottom-9 text-xs"
+          >
+            Recuperar contraseña
+          </Link>
           {error}
           <button
             type="submit"
@@ -105,12 +108,7 @@ function Login() {
           </button>
         </form>
 
-        <p className="text-gray-600 dark:text-gray-400 text-center mt-4">
-          ¿No tienes una cuenta?{" "}
-          <a href="#" className="text-blue-500 hover:underline">
-            Regístrate
-          </a>
-        </p>
+        <p className="text-gray-600 dark:text-gray-400 text-center mt-4"></p>
       </div>
     </div>
   );

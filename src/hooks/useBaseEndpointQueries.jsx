@@ -20,14 +20,10 @@ export const useGetById = (endpoint, id) => {
 
 // Usando POST
 export const usePost = (endpoint) => {
-
   return useMutation({
     mutationFn: (data) => getEndpointService(endpoint).post(data),
     onSuccess: () => {
-    },
-    onError: (error) => {
-      console.error(error);
-    },
+    }
   });
 };
 
@@ -36,9 +32,6 @@ export const usePatch = (endpoint) => {
   return useMutation({
     mutationFn: ({ id, data, queryParams="" }) => getEndpointService(endpoint).patch(id, data, queryParams),
     onSuccess: () => {},
-    onError: (error) => {
-      console.error(error);
-    },
   });
 };
 

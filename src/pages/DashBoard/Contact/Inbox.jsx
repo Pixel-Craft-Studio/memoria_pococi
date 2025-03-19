@@ -9,7 +9,7 @@ import {
   FaEye,
   FaArchive,
 } from "react-icons/fa";
-import CustomCheckBox from "./CustomCheckBox";
+import CustomCheckBox from "../Components/CustomCheckbox";
 import { ENDPOINTS } from "../../../api/api_constants";
 import { useDelete, useGetAll, usePatch } from "../../../hooks/useBaseEndpointQueries";
 import BallLoader from "../../../components/BallLoader";
@@ -44,13 +44,13 @@ const InboxComponent = () => {
   const {
     data: patchData,
     mutate: updateDataApi,
-    isLoading: isPatching,
+    isPending: isPatching,
   } = usePatch(ENDPOINTS.CONTACTS);
 
   const {
     data: deleteData,
     mutate: deleteDataApi,
-    isLoading: isDeleting,
+    isPending: isDeleting,
   } = useDelete(ENDPOINTS.CONTACTS);
 
   useEffect(() => {

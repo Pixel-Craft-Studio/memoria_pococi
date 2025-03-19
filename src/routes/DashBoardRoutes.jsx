@@ -8,13 +8,15 @@ import Perfil from "../pages/DashBoard/Perfil/Perfil";
 import Team from "../pages/DashBoard/Team/Team";
 import Error404Dashboard from "../pages/DashBoard/404Dashboard";
 import Contact from "../pages/DashBoard/Contact/Contact";
+import ResetPassword from "../pages/DashBoard/ResetPassword/ResetPassword";
+import Recovery from "../pages/DashBoard/Recovery";
 
 const DashboardRoutes = () => {
   const token = localStorage.getItem("token");
   const location = useLocation();
 
   // Si el usuario no tiene token y no está en /dashboard/login, redirigir
-  if (!token && location.pathname !== "/dashboard/login") {
+  if (!token && (location.pathname !== "/dashboard/login" && location.pathname !== "/dashboard/recovery")) {
     return <Navigate to="/dashboard/login" replace />;
   }
 
@@ -22,6 +24,7 @@ const DashboardRoutes = () => {
     <Routes>
       {/* Login dentro del Dashboard */}
       <Route path="login" element={<Login />} />
+      <Route path="recovery" element={<Recovery />} />
 
       {/* Rutas protegidas */}
       <Route
@@ -77,6 +80,14 @@ const DashboardRoutes = () => {
         element={
           <DashboardLayout>
             <Contact />
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="/reset-password"
+        element={
+          <DashboardLayout>
+            <ResetPassword />
           </DashboardLayout>
         }
       />
