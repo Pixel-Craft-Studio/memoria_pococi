@@ -6,7 +6,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 const Sidebar = () => {
   const location = useLocation();
 
-  const [isOpen, ] = useLocalStorage("isSidebarOpen", true);
+  const [isOpen] = useLocalStorage("isSidebarOpen", true);
 
   // Determinar si la sección de configuración está activa
 
@@ -40,7 +40,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
+    localStorage.removeItem("userData");
     window.location.href = "/dashboard/login"; // Redirigir manualmente
   };
 

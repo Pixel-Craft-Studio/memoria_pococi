@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function useLocalStorage(key, initialValue) {
+  const isFirstRender = useRef(true); // Evitar que el primer render dispare el efecto
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
@@ -11,9 +12,19 @@ function useLocalStorage(key, initialValue) {
   });
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
     try {
-      window.localStorage.setItem(key, JSON.stringify(storedValue));
-      window.dispatchEvent(new Event("localStorageUpdate"));
+      const prevValue = window.localStorage.getItem(key);
+      const newValue = JSON.stringify(storedValue);
+
+      if (prevValue !== newValue) {
+        window.localStorage.setItem(key, newValue);
+        window.dispatchEvent(new Event("localStorageUpdate"));
+      }
     } catch (error) {
       console.error(error);
     }

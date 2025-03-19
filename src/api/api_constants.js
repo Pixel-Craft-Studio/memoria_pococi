@@ -8,6 +8,7 @@ export const ENDPOINTS = {
   PROFILES: "profiles",
   TEAM_MEMBER: "team-member",
   CONTACTS: "contact-us",
+  CREDENTIALS: "credentials"
 };
 
 export const CREATE = "create";
