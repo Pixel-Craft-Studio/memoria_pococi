@@ -10,7 +10,6 @@ import Error404Dashboard from "../pages/DashBoard/404Dashboard";
 import Contact from "../pages/DashBoard/Contact/Contact";
 import ResetPassword from "../pages/DashBoard/ResetPassword/ResetPassword";
 import Recovery from "../pages/DashBoard/Recovery";
-import ResetPass from "../pages/DashBoard/ResetPass";
 
 const DashboardRoutes = () => {
   const token = localStorage.getItem("token");
@@ -26,7 +25,6 @@ const DashboardRoutes = () => {
       {/* Login dentro del Dashboard */}
       <Route path="login" element={<Login />} />
       <Route path="recovery" element={<Recovery />} />
-      <Route path="resetpassword" element={<ResetPass />} />
 
       {/* Rutas protegidas */}
       <Route

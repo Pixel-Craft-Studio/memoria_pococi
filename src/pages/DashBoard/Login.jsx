@@ -92,9 +92,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <p className="text-gray-600 dark:text-gray-500 text-right text-xs m-1">
-              <Link className="hover:text-gray-300 transition" to="/dashboard/resetpassword">Restablecer contraseña</Link>
-            </p>
+          
           </div>
           <Link
             to="/dashboard/recovery"
