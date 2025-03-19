@@ -5,7 +5,7 @@ import About from "../pages/About";
 import Team from "../pages/Teams";
 import Layout from "../components/Layout";
 import DashboardRoutes from "./DashBoardRoutes";
-import InitialTimeline from "../pages/InitialTimeline/InitialTimeline";
+import InitialTimeline from "../pages/InitialTimeline";
 import Contribute from "../pages/Contribute/Contribute";
 import { ContentProvider } from "../pages/Contribute/ContentContext";
 import Error404 from "../pages/404";

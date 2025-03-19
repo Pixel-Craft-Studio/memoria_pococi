@@ -26,7 +26,7 @@ const Perfil = () => {
         usePerfilApi(setIsModalOpen, setFormData);
 
     return (
-        <div className="relative flex min-h-screen pt-15 bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
+        <div className="relative flex min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
             <div className="p-4 w-full">
                 <div className="flex justify-between p-4">
                     <div>Perfiles existentes</div>

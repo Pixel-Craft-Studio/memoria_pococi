@@ -14,12 +14,12 @@ const ThemeSwitcher = () => {
 
   const toggleTheme = useCallback(() => {
     setIsDarkMode((prevMode) => !prevMode);
-  }, [setIsDarkMode]);
+  }, []);
 
   return (
     <div
       onClick={toggleTheme}
-      className="mr-4 relative hover:rotate-360 bg-neutral-600 dark:bg-gray-100 w-6 h-6 cursor-pointer rounded-full  flex items-center justify-center"
+      className="relative hover:rotate-360 bg-neutral-600 dark:bg-gray-100 w-6 h-6 cursor-pointer rounded-full  flex items-center justify-center"
     >
       <SunIcon
         className={`absolute inset-0 m-auto w-4 h-4 transform transition-all duration-300 fill-neutral-100 ${

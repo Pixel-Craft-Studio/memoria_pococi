@@ -94,7 +94,7 @@ const TemplateOne = ({ index }) => {
         <div className="w-full lg:w-1/2 flex items-center justify-center">
           <img
             className="w-full h-auto object-cover bg-center aspect-[16/9]"
-            src="https://www.lateja.cr/resizer/ZUEmhfPxRiuJa7O-F2UP1_Uu8L4=/1440x0/filters:format(jpg):quality(70)/cloudfront-us-east-1.images.arcpublishing.com/gruponacion/66MI6XPCI5D3XBLMI3XG7GHOEU.jpg"
+            src="https://images7.alphacoders.com/592/thumb-1920-592678.jpg"
             alt=""
           />
         </div>
