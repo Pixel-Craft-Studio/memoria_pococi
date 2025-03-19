@@ -9,6 +9,8 @@ import InitialTimeline from "../pages/InitialTimeline/InitialTimeline";
 import Contribute from "../pages/Contribute/Contribute";
 import { ContentProvider } from "../pages/Contribute/ContentContext";
 import Error404 from "../pages/404";
+import HistoriesTimeline from "../pages/HistoriesTimeline/HistoriesTimeline";
+import HistoryTimeline from "../pages/HistoryTimeline/HistoryTimeline";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +25,8 @@ const AppRoutes = () => {
         <Route path="/about" element={<Layout><About /></Layout>} />
         <Route path="/team" element={<Layout><Team /></Layout>} />
         <Route path="/linea-inicial" element={<Layout><InitialTimeline /></Layout>} />
+        <Route path="/linea-anual/:year" element={<Layout><HistoriesTimeline /></Layout>} />
+        <Route path="/linea-especifica/:id" element={<Layout><ContentProvider><HistoryTimeline /></ContentProvider></Layout>} />
         <Route path="/aportar" element={<Layout><ContentProvider><Contribute /></ContentProvider></Layout>} />
         {/* Rutas del Dashboard independientes */}
         <Route path="/dashboard/*" element={<DashboardRoutes />} />

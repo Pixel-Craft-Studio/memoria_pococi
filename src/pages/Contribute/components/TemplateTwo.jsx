@@ -4,7 +4,7 @@ import { useContent } from "../ContentContext";
 import { useRef, useEffect } from "react";
 import ExpandableController from "./ExpandableController";
 
-const TemplateTwo = ({ index }) => {
+const TemplateTwo = ({ index, hasControllers=true }) => {
   const { getContent, setContent } = useContent();
   const content = getContent(index);
 
@@ -37,7 +37,7 @@ const TemplateTwo = ({ index }) => {
         index % 2 == 0 ? "bg-neutral-200" : "bg-neutral-100"
       } `}
     >
-      <ExpandableController index={index}></ExpandableController>
+      {hasControllers && <ExpandableController index={index}></ExpandableController>}
       
 
       <div
@@ -100,6 +100,7 @@ const TemplateTwo = ({ index }) => {
 
 TemplateTwo.propTypes = {
   index: PropTypes.number.isRequired,
+  hasControllers: PropTypes.bool
 };
 
 export default TemplateTwo;

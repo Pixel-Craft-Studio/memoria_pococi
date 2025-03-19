@@ -36,6 +36,13 @@ export const ContentProvider = ({ children }) => {
     ]);
   };
 
+  const changeFullContent = (content) => {
+    if (JSON.stringify(content) !== JSON.stringify(contents)) {
+      setContents(content);
+    }
+  }
+
+
   const setContent = (index, data) => {
     setContents((prevContents) =>
       prevContents.map((item, i) => (i === index ? { ...item, ...data } : item))
@@ -87,7 +94,7 @@ export const ContentProvider = ({ children }) => {
 
   return (
     <ContentContext.Provider
-      value={{ contents, setContent, getContent, moveContent, removeContent, addEmptyTemplate }}
+      value={{ contents, changeFullContent, setContent, getContent, moveContent, removeContent, addEmptyTemplate }}
     >
       {children}
     </ContentContext.Provider>

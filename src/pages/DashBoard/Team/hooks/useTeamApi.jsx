@@ -57,17 +57,17 @@ export const useTeamApi = (setIsModalOpen, setFormData, emptyFormData) => {
   // Success handling effects
   useEffect(() => {
     if (!createDataResponse) return;
-    handleSuccess("Se ha registrado la red social exitosamente");
+    handleSuccess("Se ha registrado el equipo exitosamente");
   }, [createDataResponse, handleSuccess]);
 
   useEffect(() => {
     if (!updateDataResponse) return;
-    handleSuccess("Se ha actualizado la red social exitosamente");
+    handleSuccess("Se ha actualizado el equipo exitosamente");
   }, [handleSuccess, updateDataResponse]);
 
   useEffect(() => {
     if (!deleteDataResponse) return;
-    handleSuccess("Se ha eliminado la red social exitosamente");
+    handleSuccess("Se ha eliminado el equipo exitosamente");
   }, [deleteDataResponse, handleSuccess]);
 
   // Error handling effect

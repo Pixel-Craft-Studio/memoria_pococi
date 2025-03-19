@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const timelineData = [
   {
     year: "1871",
@@ -8,7 +10,7 @@ const timelineData = [
       "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgNW6gTHWQc9rm_5ux-mTGbRHSeS2oFn0Hx13wPfo2RK6zgZxuSBHX-0E2dGQpRRePN9_A9eSzkR66-gYKxQIy3f-dwm6wPQ8nSC14D3Pb1VJIHVpRHFnvEAKO9amwNvdpA9cTqXHqCs4g/s1600/1106.jpg",
   },
   {
-    year: "1871",
+    year: "1875",
     title: "Título 1",
     description:
       "Turrialba se convirtió en un punto estratégico gracias al desarrollo del Ferrocarril al Caribe, una obra impulsada por el gobierno de Próspero Fernández y ejecutada bajo la dirección del ingeniero John Durbin. Este proyecto atrajo a cientos de trabajadores, principalmente inmigrantes que buscaban oportunidades en la creciente industria del transporte ferroviario. Con el tiempo, la región experimentó un auge económico, impulsado por la producción agrícola y el comercio con las provincias cercanas.",
@@ -17,8 +19,6 @@ const timelineData = [
   },
 
 ];
-
-import "./InitialTimeline.css"
 
 // eslint-disable-next-line react/prop-types
 const TimelineItem = ({ year, title, description, image, isReversed }) => {
@@ -32,9 +32,9 @@ const TimelineItem = ({ year, title, description, image, isReversed }) => {
   <div className="w-full md:w-[45%] flex flex-col gap-3 px-4 order-3 md:order-3 lg:order-1 mt-2">
     <h2 className="font-bold text-2xl text-neutral-500">{title}</h2>
     <p className="line-clamp-5 text-justify">{description}</p>
-    <button className="text-sm text-left cursor-pointer text-blue-500 hover:underline">
+    <Link to={`/linea-anual/${year}`} className="text-sm text-left cursor-pointer text-blue-500 hover:underline">
       Ver historias
-    </button>
+    </Link>
   </div>
 
   {/* Columna 1 */}
@@ -61,8 +61,6 @@ const TimelineItem = ({ year, title, description, image, isReversed }) => {
     <div className="bg-neutral-200 w-[41px] h-[41px] rounded-full"></div>
     <div className="absolute h-[220px] border-neutral-400 border-l-2 top-[40px] left-[20px]"></div>
   </div>
-
-
 
 </div>
 

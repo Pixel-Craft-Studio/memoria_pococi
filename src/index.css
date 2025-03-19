@@ -77,6 +77,15 @@ input, h1, h2, h3, h4, h5, h6 {
 
 /**/
 
+/**/
+@media (max-width: 900px) {
+  .hidden-900 {
+     display: none !important;
+  }
+}
+
+/**/
+
 
 @keyframes rotate {
   0% {

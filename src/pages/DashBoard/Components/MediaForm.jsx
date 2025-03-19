@@ -8,7 +8,7 @@ const MediaForm = ({ stage, formData, handleChange }) => {
 
   return (
     <form className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg">
-      <h2 className="text-xl font-semibold mb-4">
+      <h2 className="text-xl font-semibold mb-4 text-center">
         {isDeleteMode ? "Eliminar" : stage === UPDATE ? "Editar" : "Crear"} red
         social
       </h2>

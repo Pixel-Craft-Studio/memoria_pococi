@@ -56,17 +56,17 @@ export const usePerfilApi = (setIsModalOpen, setFormData, emptyFormData) => {
   // Success handling effects
   useEffect(() => {
     if (!createDataResponse) return;
-    handleSuccess("Se ha registrado la red social exitosamente");
+    handleSuccess("Se ha registrado el perfil exitosamente");
   }, [createDataResponse, handleSuccess]);
 
   useEffect(() => {
     if (!updateDataResponse) return;
-    handleSuccess("Se ha actualizado la red social exitosamente");
+    handleSuccess("Se ha actualizado el perfil exitosamente");
   }, [handleSuccess, updateDataResponse]);
 
   useEffect(() => {
     if (!deleteDataResponse) return;
-    handleSuccess("Se ha eliminado la red social exitosamente");
+    handleSuccess("Se ha eliminado el perfil exitosamente");
   }, [deleteDataResponse, handleSuccess]);
 
   // Error handling effect

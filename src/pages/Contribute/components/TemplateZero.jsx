@@ -4,7 +4,7 @@ import { useContent } from "../ContentContext";
 import { useRef, useEffect } from "react";
 import ExpandableController from "./ExpandableController";
 
-const TemplateZero = ({ index }) => {
+const TemplateZero = ({ index, hasControllers=true }) => {
   const { getContent, setContent } = useContent();
   const content = getContent(index);
 
@@ -38,7 +38,7 @@ const TemplateZero = ({ index }) => {
       } `}
     >
 
-      <ExpandableController index={index}></ExpandableController>
+      {hasControllers && <ExpandableController index={index}></ExpandableController>}
 
       {/* Container principal - flex-col en móvil, flex-row en desktop */}
       <div
@@ -131,6 +131,7 @@ const TemplateZero = ({ index }) => {
 
 TemplateZero.propTypes = {
   index: PropTypes.number.isRequired,
+  hasControllers: PropTypes.bool
 };
 
 export default TemplateZero;

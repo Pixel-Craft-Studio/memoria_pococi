@@ -143,7 +143,7 @@ const PerfilTable = ({ setFormData, changeStage, updateSignalState }) => {
                       <span
                         className={`w-3 h-3 rounded-full ${item.is_active ? "bg-green-500" : "bg-red-500"}`}
                       ></span>
-                      {item.is_active ? "Activo" : "Desactivado"}
+                      {item.is_active ? "Activo" : "Inactivo"}
                     </div>
                   </td>
                 </tr>
