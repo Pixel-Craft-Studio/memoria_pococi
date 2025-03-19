@@ -29,7 +29,7 @@ export const usePerfilApi = (setIsModalOpen, setFormData, emptyFormData) => {
 
   const handleSendModal = (stage, formData) => {
     if (stage === DELETE) {
-      deleteDataApi(formData.id);
+      deleteDataApi({id: formData.id});
     } else if (stage === CREATE) {
       postDataApi({ ...formData });
     } else if (stage === UPDATE) {

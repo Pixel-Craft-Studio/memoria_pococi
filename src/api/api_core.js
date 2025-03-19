@@ -52,7 +52,9 @@ export class BaseApiService {
     return response;
   }
 
-  async patch(id, data) {
+  async patch(id, data, queryParams = "") {
+    console.log(`${this.baseRoute}/${id}${queryParams ? "?" + queryParams : ""}`);
+    
     const options = {
       method: "PATCH",
     };
@@ -66,14 +68,26 @@ export class BaseApiService {
       options.body = JSON.stringify(data);
     }
 
-    const response = fetchWithErrorHandling(`${this.baseRoute}/${id}`, options);
+    const response = fetchWithErrorHandling(`${this.baseRoute}/${id}${queryParams ? "?" + queryParams : ""}`, options);
     return response;
   }
 
-  async delete(id) {
-    const response = fetchWithErrorHandling(`${this.baseRoute}/${id}`, {
+  async delete(id, data) {
+
+    const options = {
       method: "DELETE",
-    });
+    };
+
+    if (data instanceof FormData) {
+      options.body = data;
+    } else {
+      options.headers = {
+        "Content-Type": "application/json",
+      };
+      options.body = JSON.stringify(data);
+    }
+
+    const response = fetchWithErrorHandling(`${this.baseRoute}/${id}`, options);
     return response;
   }
 }

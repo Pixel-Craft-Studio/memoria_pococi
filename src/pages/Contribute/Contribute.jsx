@@ -24,7 +24,7 @@ const Contribute = () => {
         );
       })}
 
-      <div className="flex w-full justify-center m-1">
+      <div className="flex w-full justify-center m-1 mb-12">
         <TemplateController></TemplateController>
       </div>
     </div>
