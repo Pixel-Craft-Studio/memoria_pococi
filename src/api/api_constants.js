@@ -8,7 +8,9 @@ export const ENDPOINTS = {
   PROFILES: "profiles",
   TEAM_MEMBER: "team-member",
   CONTACTS: "contact-us",
-  CREDENTIALS: "credentials"
+  CREDENTIALS: "credentials",
+  TIMELINE_YEAR: "timeline-year",
+  TIMELINE_HISTORY: "timeline-history",
 };
 
 export const CREATE = "create";

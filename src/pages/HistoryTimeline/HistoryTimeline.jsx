@@ -1,32 +1,95 @@
+import { useParams } from "react-router-dom";
+import { ENDPOINTS } from "../../api/api_constants";
+import { useGetById } from "../../hooks/useBaseEndpointQueries";
 import TemplateOne from "../Contribute/components/TemplateOne";
 import TemplateTwo from "../Contribute/components/TemplateTwo";
 import TemplateZero from "../Contribute/components/TemplateZero";
 import { useContent } from "../Contribute/ContentContext";
+import { useEffect, useState } from "react";
+import { PiWarning } from "react-icons/pi";
+import BallLoader from "../../components/BallLoader";
 
 const HistoryTimeline = () => {
+  const { id } = useParams();
   const { contents, changeFullContent } = useContent();
 
-  changeFullContent(
-    [
-      {
-        template: "template_zero",
-        stage: "preview",
-        inverted: false,
-        title: "Auge de la Agricultura",
-        year: "1874",
-        content:
-          "Turrialba se convirtió en un punto estratégico gracias al desarrollo del Ferrocarril al Caribe, una obra impulsada por el gobierno de Próspero Fernández y ejecutada bajo la dirección del ingeniero John Durbin. Este proyecto atrajo a cientos de trabajadores, principalmente inmigrantes que buscaban oportunidades en la creciente industria del transporte ferroviario. Con el tiempo, la región experimentó un auge económico, impulsado por la producción agrícola y el comercio con las provincias cercanas.",
-        image_url: "",
-      }
+  const [timelineHistory, setTimelineHistory] = useState({});
+
+  const {
+    data: response,
+    isFetching: isFetching,
+    error: errorAll,
+  } = useGetById(ENDPOINTS.TIMELINE_HISTORY, id);
+
+  console.log(timelineHistory);
+
+  useEffect(() => {
+    if (response) {
+      setTimelineHistory(response.data);
+    }
+  }, [response]);
+
+  useEffect(() => {
+    if (timelineHistory) {
+      console.log(timelineHistory);
+      
+      changeFullContent([
+        {
+          template: "template_zero",
+          stage: "preview",
+          inverted: false,
+          title: timelineHistory.title,
+          year: timelineHistory.timeline_id,
+          content: timelineHistory.description,
+          image_url: timelineHistory.image_url,
+        },
+      ]);
+    }
   
-    ]
-  );
+  }, [changeFullContent, timelineHistory])
+  
 
   const templates = {
     template_zero: TemplateZero,
     template_one: TemplateOne,
     template_two: TemplateTwo,
   };
+
+  const renderLoading = () => {
+    return (
+      <>
+        <div className="flex flex-col items-center justify-center h-full m-auto">
+          <BallLoader></BallLoader>
+
+          <p className="text-center text-gray-400 text-xl animate-pulse font-bold">
+            Cargando historia...
+          </p>
+        </div>
+      </>
+    );
+  };
+
+  const renderError = () => {
+    return (
+      <>
+        <div className="flex flex-col items-center justify-center h-full m-auto">
+          <PiWarning className="text-gray-400" size={36}></PiWarning>
+
+          <p className="text-center text-gray-400 text-xl font-bold">
+            Surgió un error al cargar, inténtelo nuevamente.
+          </p>
+        </div>
+      </>
+    );
+  };
+
+  if (errorAll) {
+    return renderError();
+  }
+
+  if (isFetching) {
+    return renderLoading();
+  }
 
   return (
     <>
