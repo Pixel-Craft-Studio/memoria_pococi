@@ -10,6 +10,7 @@ import Error404Dashboard from "../pages/DashBoard/404Dashboard";
 import Contact from "../pages/DashBoard/Contact/Contact";
 import ResetPassword from "../pages/DashBoard/ResetPassword/ResetPassword";
 import Recovery from "../pages/DashBoard/Recovery";
+import Category from "../pages/DashBoard/Category/Category";
 
 const DashboardRoutes = () => {
   const token = localStorage.getItem("token");
@@ -80,6 +81,14 @@ const DashboardRoutes = () => {
         element={
           <DashboardLayout>
             <Contact />
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="/category"
+        element={
+          <DashboardLayout>
+            <Category />
           </DashboardLayout>
         }
       />

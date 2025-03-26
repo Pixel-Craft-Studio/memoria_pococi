@@ -15,7 +15,7 @@ function Error404Dashboard() {
 
     return (
         <>
-            <div className="flex items-center justify-center p-5 text-gray-100">
+            <div className="min-h-screen flex items-center justify-center p-5 text-gray-100">
                 <div className="text-center">
                     {/* Número 404 con animación */}
                     <h1 className="animate__animated animate__fadeIn animate__delay-1s text-9xl font-extrabold mb-8">

@@ -125,6 +125,9 @@ const Sidebar = () => {
                   <Link to="/dashboard/contact" className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive("/dashboard/contact")}`}>
                     <span>Mensajes</span>
                   </Link>
+                  <Link to="/dashboard/category" className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive("/dashboard/category")}`}>
+                    <span>Categoria</span>
+                  </Link>
                 </ul>
               </div>
             </li>

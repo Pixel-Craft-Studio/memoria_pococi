@@ -11,6 +11,7 @@ export const ENDPOINTS = {
   CREDENTIALS: "credentials",
   TIMELINE_YEAR: "timeline-year",
   TIMELINE_HISTORY: "timeline-history",
+  TIMELINE_CATEGORY: "timeline-category",
 };
 
 export const CREATE = "create";
