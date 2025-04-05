@@ -14,8 +14,6 @@ const TimelineItem = ({
   categories,
   isReversed,
 }) => {
-
-
   // Definir cuántas categorías mostrar inicialmente
   const categoryLimit = 3;
   const hasManyCatagories = categories && categories.length > categoryLimit;
@@ -46,28 +44,18 @@ const TimelineItem = ({
             {/* Mostrar categorías limitadas o todas */}
             <div className="flex flex-wrap gap-1">
               {categories &&
-                categories
-                  .slice(
-                    0,
-                    categoryLimit
-                  )
-                  .map((category, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs px-2 py-1 bg-gray-100 rounded-full text-gray-600 hover:bg-gray-200 cursor-pointer transition-colors"
-                    >
-                      {category.name}
-                    </span>
-                  ))}
+                categories.slice(0, categoryLimit).map((category, idx) => (
+                  <span
+                    key={idx}
+                    className="text-xs px-2 py-1 bg-gray-100 rounded-full text-gray-600 hover:bg-gray-200 cursor-pointer transition-colors"
+                  >
+                    {category.name}
+                  </span>
+                ))}
 
               {/* Botón para mostrar más/menos */}
               {hasManyCatagories && (
-                <button
-                 
-                  className="text-xs px-2 py-1 text-blue-500 hover:underline cursor-pointer"
-                >
-
-                </button>
+                <button className="text-xs px-2 py-1 text-blue-500 hover:underline cursor-pointer"></button>
               )}
             </div>
           </div>
@@ -80,19 +68,6 @@ const TimelineItem = ({
           className="w-full md:w-[380px] h-auto rounded-lg shadow-sm aspect-video"
           src={`${API_URL}/image${image_url}`}
           alt={`Imagen de ${title}`}
-        />
-      </div>
-
-      {/* Ícono notificación */}
-      <div
-        className={`flex w-full gap-3 items-center md:flex-col justify-center order-1 md:order-2 lg:order-2 md:w-10 mb-2 ${
-          isReversed ? "" : "lg:ml-10"
-        }`}
-      >
-        <img
-          src="/imgs/notification.png"
-          alt="Notificación"
-          className="w-[30px] h-[30px] opacity-30 transition duration-300 cursor-pointer hover:opacity-60"
         />
       </div>
 
@@ -121,17 +96,18 @@ const HistoriesTimeline = () => {
   const { year } = useParams();
 
   const [timelineHistories, setTimelineHistories] = useState([]);
+  const [timelineData, setTimelineData] = useState([]);
 
   const {
     data: response,
     isFetching: isFetching,
     error: errorAll,
   } = useGetById(`${ENDPOINTS.TIMELINE_YEAR}/year`, year);
-  console.log(timelineHistories);
 
   useEffect(() => {
     if (response) {
       setTimelineHistories(response.data.histories);
+      setTimelineData(response.data);
     }
   }, [response]);
 
@@ -172,8 +148,35 @@ const HistoriesTimeline = () => {
   }
 
   return (
-    <div className="flex justify-center items-center flex-col">
-      <div className="text-4xl m-2 mt-4 ml-14 text-gray-400">{year}</div>
+    <div className="flex justify-center items-center flex-col my-4">
+      <div className="container mx-auto">
+        <div className="flex flex-col md:flex-row gap-8 items-center">
+          {/* Imagen - izquierda en desktop, arriba en móvil */}
+          <div className="md:w-2/5">
+            <img
+              className="w-full rounded-lg shadow-sm"
+              src={`${API_URL}/image${timelineData.image_url}`}
+              alt={`Imagen de ${year}`}
+            />
+          </div>
+
+          {/* Contenido de texto - derecha en desktop, abajo en móvil */}
+          <div className="md:w-3/5">
+            <h1 className="text-3xl font-bold text-gray-800 mb-3">
+              {timelineData.title}
+            </h1>
+            <p className="text-lg text-gray-600 mb-5">
+              {timelineData.description}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="ml-30 text-center">
+        <span className="text-3xl text-gray-400 block mb-5">{year}</span>
+        <h2 className="text-xl text-gray-500">Historias asociadas</h2>
+      </div>
+
       <div className="container mx-auto p-4">
         {timelineHistories.map((item, index) => (
           <TimelineItem key={index} {...item} isReversed={index % 2 !== 0} />

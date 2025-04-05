@@ -82,26 +82,26 @@ const TemplateController = () => {
           <path
             d="M16.5 5.8125H7.5"
             stroke="#1C2434"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <path
             d="M16.5 10.575H7.5"
             stroke="#1C2434"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <path
             d="M16.5 14.5125H7.5"
             stroke="#1C2434"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <path
             d="M16.5 18.4125H7.5"
             stroke="#1C2434"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
         </svg>
       ),

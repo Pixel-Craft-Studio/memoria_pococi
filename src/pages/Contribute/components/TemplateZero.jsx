@@ -79,20 +79,9 @@ const TemplateZero = ({ index, hasControllers=true }) => {
                   {content.year}
                 </h2>
               ) : (
-                <h2
-                  ref={yearRef}
-                  className="mt-2 text-2xl border-gray-300 border-1 text-center outline-transparent min-h-8 px-2"
-                  contentEditable
-                  suppressContentEditableWarning
-                  dangerouslySetInnerHTML={{ __html: content.year || "" }}
-                  onBlur={(e) => handleContentEditableChange(e, "year")}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      e.currentTarget.blur();
-                    }
-                  }}
-                ></h2>
+                <h2 className="mt-2 text-2xl border-1 border-transparent">
+                  {content.year}
+                </h2>
               )}
             </div>
           </div>

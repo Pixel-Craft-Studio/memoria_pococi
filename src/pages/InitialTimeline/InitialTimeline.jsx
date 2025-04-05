@@ -40,11 +40,7 @@ const TimelineItem = ({ year, title, description, image_url, isReversed }) => {
         }`}
       >
         <h2 className="font-bold text-neutral-500 text-2xl ">{year}</h2>
-        <img
-          src="/imgs/notification.png"
-          alt="Notificación"
-          className="w-[30px] h-[30px] opacity-30 transition duration-300 cursor-pointer rotate-10"
-        />
+
       </div>
 
       {/* Columna 3 */}

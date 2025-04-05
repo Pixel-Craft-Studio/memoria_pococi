@@ -3,9 +3,18 @@ import TemplateOne from "./components/TemplateOne";
 import TemplateTwo from "./components/TemplateTwo";
 import { useContent } from "./ContentContext";
 import TemplateController from "./components/TemplateController";
+import YearDateSelector from "./components/YearDateSelector";
+import CategorySelector from "./components/CategorySelector";
+import { useEffect, useState } from "react";
 
 const Contribute = () => {
-  const { contents } = useContent();
+  const { contents, setContent } = useContent();
+
+  const [selectedYear, setSelectedYear] = useState();
+
+  useEffect(() => {
+    setContent(0, { year: selectedYear });
+  }, [selectedYear, setContent]);
 
   const templates = {
     template_zero: TemplateZero,
@@ -15,6 +24,15 @@ const Contribute = () => {
 
   return (
     <div>
+      <div className="flex justify-center">
+        <div className="flex container">
+          <YearDateSelector
+            selectedYear={selectedYear}
+            setSelectedYear={setSelectedYear}
+          ></YearDateSelector>
+          <CategorySelector></CategorySelector>
+        </div>
+      </div>
       {contents.map((content, index) => {
         const Template = templates[content.template];
         return (

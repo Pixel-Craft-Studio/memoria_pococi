@@ -38,7 +38,7 @@ const HistoryTimeline = () => {
           stage: "preview",
           inverted: false,
           title: timelineHistory.title,
-          year: timelineHistory.timeline_id,
+          year: timelineHistory.year,
           content: timelineHistory.description,
           image_url: timelineHistory.image_url,
         },
