@@ -8,9 +8,6 @@ const DropZone = ({ formData, handleChange }) => {
   const [imgError, setImgError] = useState(false);
   const [preview, setPreview] = useState(null);
 
-  console.log(formData);
-  
-
   const onDrop = useCallback(
     (acceptedFiles) => {
       const file = acceptedFiles[0];
@@ -39,8 +36,11 @@ const DropZone = ({ formData, handleChange }) => {
   });
 
   useEffect(() => {
-    if (formData && formData.image_url && !formData.image) {
-      setPreview(`${API_URL}/image${formData.image_url}`);
+    
+    const image_url = formData && formData.image_url || formData.photo_url
+
+    if (formData && image_url && !formData.image) {
+      setPreview(`${API_URL}/image${image_url}`);
       setImgError(false);
     }
   }, [formData]);

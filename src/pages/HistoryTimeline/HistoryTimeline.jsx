@@ -21,7 +21,6 @@ const HistoryTimeline = () => {
     error: errorAll,
   } = useGetById(ENDPOINTS.TIMELINE_HISTORY, id);
 
-  console.log(timelineHistory);
 
   useEffect(() => {
     if (response) {

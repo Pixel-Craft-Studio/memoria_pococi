@@ -126,8 +126,7 @@ const HistoriesTimeline = () => {
     data: response,
     isFetching: isFetching,
     error: errorAll,
-  } = useGetById(ENDPOINTS.TIMELINE_YEAR, year);
-
+  } = useGetById(`${ENDPOINTS.TIMELINE_YEAR}/year`, year);
   console.log(timelineHistories);
 
   useEffect(() => {

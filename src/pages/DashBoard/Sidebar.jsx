@@ -10,10 +10,15 @@ const Sidebar = () => {
 
   // Determinar si la sección de configuración está activa
 
-  const isConfigActive = ["/dashboard/about", "/dashboard/media", "/dashboard/perfil", "/dashboard/team", "/dashboard/contact", "/dashboard/category"].includes(location.pathname);
-
-
-
+  const isConfigActive = [
+    "/dashboard/about",
+    "/dashboard/media",
+    "/dashboard/perfil",
+    "/dashboard/team",
+    "/dashboard/contact",
+    "/dashboard/period",
+    "/dashboard/category"
+  ].includes(location.pathname);
 
   const [isConfigOpen, setIsConfigOpen] = useState(() => {
     return localStorage.getItem("isConfigOpen") === "true" && isConfigActive;
@@ -53,8 +58,6 @@ const Sidebar = () => {
         } md:w-50`}
       >
         <div className="min-w-50">
-
-
           {/* Navegación */}
           <nav className="flex-1 mt-6">
             <ul className="space-y-4">
@@ -119,22 +122,47 @@ const Sidebar = () => {
                       <span>Perfiles</span>
                     </Link>
 
-                    <Link to="/dashboard/team" className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive("/dashboard/team")}`}>
-                    <span>Equipo de trabajo</span>
-                  </Link>
-                  <Link to="/dashboard/contact" className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive("/dashboard/contact")}`}>
-                    <span>Mensajes</span>
-                  </Link>
-                  <Link to="/dashboard/category" className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive("/dashboard/category")}`}>
-                    <span>Categoria</span>
-                  </Link>
-                </ul>
-              </div>
-            </li>
-            <Link
-              to=""
-              className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive("/dashboard/reportes")}`}
-              onClick={() => setIsConfigOpen(false)} // Cierra configuración si se selecciona otra opción
+                    <Link
+                      to="/dashboard/team"
+                      className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive(
+                        "/dashboard/team"
+                      )}`}
+                    >
+                      <span>Equipo de trabajo</span>
+                    </Link>
+                    <Link
+                      to="/dashboard/contact"
+                      className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive(
+                        "/dashboard/contact"
+                      )}`}
+                    >
+                      <span>Mensajes</span>
+                    </Link>
+                    <Link
+                      to="/dashboard/category"
+                      className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive(
+                        "/dashboard/category"
+                      )}`}
+                    >
+                      <span>Categoria</span>
+                    </Link>
+                    <Link
+                      to="/dashboard/period"
+                      className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive(
+                        "/dashboard/periods"
+                      )}`}
+                    >
+                      <span>Años</span>
+                    </Link>
+                  </ul>
+                </div>
+              </li>
+              <Link
+                to=""
+                className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive(
+                  "/dashboard/reportes"
+                )}`}
+                onClick={() => setIsConfigOpen(false)} // Cierra configuración si se selecciona otra opción
               >
                 <FiHome className="text-lg" />
                 <span>Aportes</span>

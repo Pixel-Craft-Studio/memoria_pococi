@@ -11,13 +11,18 @@ import Contact from "../pages/DashBoard/Contact/Contact";
 import ResetPassword from "../pages/DashBoard/ResetPassword/ResetPassword";
 import Recovery from "../pages/DashBoard/Recovery";
 import Category from "../pages/DashBoard/Category/Category";
+import Period from "../pages/DashBoard/Period/Period";
 
 const DashboardRoutes = () => {
   const token = localStorage.getItem("token");
   const location = useLocation();
 
   // Si el usuario no tiene token y no está en /dashboard/login, redirigir
-  if (!token && (location.pathname !== "/dashboard/login" && location.pathname !== "/dashboard/recovery")) {
+  if (
+    !token &&
+    location.pathname !== "/dashboard/login" &&
+    location.pathname !== "/dashboard/recovery"
+  ) {
     return <Navigate to="/dashboard/login" replace />;
   }
 
@@ -89,6 +94,14 @@ const DashboardRoutes = () => {
         element={
           <DashboardLayout>
             <Category />
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="/period"
+        element={
+          <DashboardLayout>
+            <Period />
           </DashboardLayout>
         }
       />

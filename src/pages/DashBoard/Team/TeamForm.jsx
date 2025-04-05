@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { DELETE } from "../../../api/api_constants";
-import DropZoneTeam from "../../../components/DropZoneTeam";
+import DropZonePhoto from "../../../components/DropZonePhoto";
 
 const TeamForm = ({ stage, formData, handleChange }) => {
     const isDeleteMode = stage === DELETE;
@@ -67,7 +67,7 @@ const TeamForm = ({ stage, formData, handleChange }) => {
                         <label htmlFor="icon" className="block text-sm font-medium mt-3 text-gray-700 dark:text-gray-300">
                             Icono
                         </label>
-                        <DropZoneTeam handleChange={handleChange} formData={formData} />
+                        <DropZonePhoto handleChange={handleChange} formData={formData} />
                     </div>
                 )}
 
