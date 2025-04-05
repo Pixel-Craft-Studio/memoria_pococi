@@ -4,7 +4,7 @@ import { API_URL } from "../api/api_constants";
 import { useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
 
-const DropZone = ({ formData, handleChange }) => {
+const DropZoneTeam = ({ formData, handleChange }) => {
   const [imgError, setImgError] = useState(false);
   const [preview, setPreview] = useState(null);
 
@@ -39,8 +39,8 @@ const DropZone = ({ formData, handleChange }) => {
   });
 
   useEffect(() => {
-    if (formData && formData.image_url && !formData.image) {
-      setPreview(`${API_URL}/image${formData.image_url}`);
+    if (formData && formData.photo_url && !formData.image) {
+      setPreview(`${API_URL}/image${formData.photo_url}`);
       setImgError(false);
     }
   }, [formData]);
@@ -85,13 +85,12 @@ const DropZone = ({ formData, handleChange }) => {
   );
 };
 
-DropZone.propTypes = {
+DropZoneTeam.propTypes = {
   handleChange: PropTypes.func,
   formData: PropTypes.shape({
-    image_url: PropTypes.string,
     photo_url: PropTypes.string,
     image: PropTypes.file,
   }).isRequired,
 };
 
-export default DropZone;
+export default DropZoneTeam;

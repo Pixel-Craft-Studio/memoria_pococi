@@ -10,7 +10,7 @@ const Sidebar = () => {
 
   // Determinar si la sección de configuración está activa
 
-  const isConfigActive = ["/dashboard/about", "/dashboard/media", "/dashboard/perfil", "/dashboard/team", "/dashboard/contact"].includes(location.pathname);
+  const isConfigActive = ["/dashboard/about", "/dashboard/media", "/dashboard/perfil", "/dashboard/team", "/dashboard/contact", "/dashboard/category"].includes(location.pathname);
 
 
 

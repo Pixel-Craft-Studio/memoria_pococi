@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { DELETE } from "../../../api/api_constants";
-import DropZone from "../../../components/DropZone";
+import DropZoneTeam from "../../../components/DropZoneTeam";
 
 const TeamForm = ({ stage, formData, handleChange }) => {
     const isDeleteMode = stage === DELETE;
     const isEditMode = !isDeleteMode && formData.id; // Si hay un ID, es actualización
 
     return (
-        <form className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg ">
+        <formTeam className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg ">
             <h2 className="text-2xl font-bold mb-2 text-center text-gray-800 dark:text-white">
                 {isDeleteMode ? "Eliminar" : isEditMode ? "Editar" : "Crear"} miembro
             </h2>
@@ -67,7 +67,7 @@ const TeamForm = ({ stage, formData, handleChange }) => {
                         <label htmlFor="icon" className="block text-sm font-medium mt-3 text-gray-700 dark:text-gray-300">
                             Icono
                         </label>
-                        <DropZone handleChange={handleChange} formData={formData} />
+                        <DropZoneTeam handleChange={handleChange} formData={formData} />
                     </div>
                 )}
 
@@ -88,7 +88,7 @@ const TeamForm = ({ stage, formData, handleChange }) => {
                     </div>
                 )}
             </div>
-        </form>
+        </formTeam>
     );
 };
 

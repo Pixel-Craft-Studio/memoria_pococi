@@ -18,7 +18,8 @@ const TeamsCards = ({ setFormData, changeStage, updateSignalState }) => {
   }, [updateSignal, refetch, setUpdateSignal]);
 
   const handleEdit = (item) => {
-    setFormData({ id: item.id, name: item.name, description: item.description, role: item.role });
+    setFormData({ id: item.id, name: item.name, description: item.description, role: item.role, photo_url: item.photo_url });
+    console.log(item.photo_url)
     changeStage(UPDATE);
   };
 
