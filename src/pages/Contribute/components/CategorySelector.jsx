@@ -9,7 +9,6 @@ const CategorySelector = () => {
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
   
-
   const [allCategories, setAllCategories] = useState([])
 
   const {
@@ -18,18 +17,11 @@ const CategorySelector = () => {
 
   useEffect(() => {
     if (allResponseData) {
-      console.log(allResponseData);
       const categories = allResponseData.data;
       setAllCategories(categories);
     }
   }, [allResponseData]);
 
-  
-  
-
-
-
-  
   // Categorías filtradas según la búsqueda y exclusión de seleccionadas
   const filteredCategories = allCategories
     .filter(category => !selectedCategories.includes(category))
@@ -74,7 +66,7 @@ const CategorySelector = () => {
   };
 
   return (
-    <div className="w-full mx-auto p-6 bg-white rounded-lg shadow-sm">
+    <div className="w-full mx-auto p-6 bg-white rounded-lg ">
       <label className="block text-sm font-medium text-gray-700 mb-2">
         Categorías
       </label>

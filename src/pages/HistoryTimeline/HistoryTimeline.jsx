@@ -21,7 +21,6 @@ const HistoryTimeline = () => {
     error: errorAll,
   } = useGetById(ENDPOINTS.TIMELINE_HISTORY, id);
 
-
   useEffect(() => {
     if (response) {
       setTimelineHistory(response.data);
@@ -29,9 +28,11 @@ const HistoryTimeline = () => {
   }, [response]);
 
   useEffect(() => {
+    console.log(timelineHistory);
+
     if (timelineHistory) {
-      console.log(timelineHistory);
-      
+      console.log(timelineHistory.sections);
+
       changeFullContent([
         {
           template: "template_zero",
@@ -42,11 +43,20 @@ const HistoryTimeline = () => {
           content: timelineHistory.description,
           image_url: timelineHistory.image_url,
         },
+        ...(timelineHistory.sections
+          ? timelineHistory.sections.map((section) => ({
+              template: section.template || "template_one", 
+              stage: "preview",
+              inverted: section.isInverted, 
+              title: section.title,
+              year: timelineHistory.year, 
+              content: section.description,
+              image_url: section.image_url,
+            }))
+          : []),
       ]);
     }
-  
-  }, [changeFullContent, timelineHistory])
-  
+  }, [changeFullContent, timelineHistory]);
 
   const templates = {
     template_zero: TemplateZero,

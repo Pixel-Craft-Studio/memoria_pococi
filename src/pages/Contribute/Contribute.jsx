@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import TemplateZero from "./components/TemplateZero";
 import TemplateOne from "./components/TemplateOne";
 import TemplateTwo from "./components/TemplateTwo";
@@ -14,7 +15,7 @@ const Contribute = () => {
 
   useEffect(() => {
     setContent(0, { year: selectedYear });
-  }, [selectedYear, setContent]);
+  }, [selectedYear]);
 
   const templates = {
     template_zero: TemplateZero,
@@ -23,27 +24,43 @@ const Contribute = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-center">
-        <div className="flex container">
+    <div className="flex container mx-auto ">
+      <div className="flex flex-col w-72 bg-white rounded-lg shadow-sm mr-1 h-fit sticky top-6">
+        <h2 className="text-xl mt-2 font-light text-gray-800 ">Configuración</h2>
+
+        <div className="mb-6">
           <YearDateSelector
             selectedYear={selectedYear}
             setSelectedYear={setSelectedYear}
-          ></YearDateSelector>
-          <CategorySelector></CategorySelector>
+          />
         </div>
-      </div>
-      {contents.map((content, index) => {
-        const Template = templates[content.template];
-        return (
-          <div key={index} className="animate__animated animate__bounceInRight">
-            <Template index={index} />
-          </div>
-        );
-      })}
+        
+        <div className="border-1 border-gray-200"/>
 
-      <div className="flex w-full justify-center m-1 mb-12">
-        <TemplateController></TemplateController>
+        <div >
+          <CategorySelector />
+        </div>
+
+        <button className="cursor-pointer w-full bg-gray-900 hover:bg-gray-800 text-white py-2 px-4 rounded-md transition-colors duration-200 ease-in-out text-sm font-medium">
+          Guardar Cambios
+        </button>
+      </div>
+      <div className="w-full border-dashed border-2 border-gray-300 rounded-lg  bg-white shadow-sm p-2 my-2">
+        {contents.map((content, index) => {
+          const Template = templates[content.template];
+          return (
+            <div
+              key={index}
+              className="animate__animated animate__bounceInRight"
+            >
+              <Template index={index} />
+            </div>
+          );
+        })}
+
+        <div className="flex w-full justify-center m-1 mb-12">
+          <TemplateController></TemplateController>
+        </div>
       </div>
     </div>
   );
