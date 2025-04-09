@@ -7,10 +7,10 @@ import TemplateController from "./components/TemplateController";
 import YearDateSelector from "./components/YearDateSelector";
 import CategorySelector from "./components/CategorySelector";
 import { useEffect, useState } from "react";
+import 'animate.css';
 
 const Contribute = () => {
   const { contents, setContent } = useContent();
-
   const [selectedYear, setSelectedYear] = useState();
 
   useEffect(() => {
@@ -24,9 +24,12 @@ const Contribute = () => {
   };
 
   return (
-    <div className="flex container mx-auto ">
-      <div className="flex flex-col w-72 bg-white rounded-lg shadow-sm mr-1 h-fit sticky top-6">
-        <h2 className="text-xl mt-2 font-light text-gray-800 ">Configuración</h2>
+    <div className="container mx-auto px-4 py-6 flex flex-col lg:flex-row">
+      {/* Panel de configuración - Responsive */}
+      <div className="w-full lg:w-60 bg-white rounded-xl shadow-md lg:mr-6 mb-6 lg:mb-0 h-fit lg:sticky lg:top-6 p-5 border border-gray-100">
+        <h2 className="text-2xl mb-6 font-light text-[#CB5C1F] border-b border-[#EABF34] pb-3">
+          Configuración
+        </h2>
 
         <div className="mb-6">
           <YearDateSelector
@@ -35,31 +38,33 @@ const Contribute = () => {
           />
         </div>
         
-        <div className="border-1 border-gray-200"/>
+        <div className="border-t border-gray-200 my-4"/>
 
-        <div >
+        <div className="mb-8">
           <CategorySelector />
         </div>
 
-        <button className="cursor-pointer w-full bg-gray-900 hover:bg-gray-800 text-white py-2 px-4 rounded-md transition-colors duration-200 ease-in-out text-sm font-medium">
+        <button className="w-full bg-[#CB5C1F] hover:bg-[#EABF34] text-white py-3 px-4 rounded-lg transition-all duration-300 text-base font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
           Guardar Cambios
         </button>
       </div>
-      <div className="w-full border-dashed border-2 border-gray-300 rounded-lg  bg-white shadow-sm p-2 my-2">
+
+      {/* Área de contenido - Responsive */}
+      <div className="flex-1 border-2 border-dashed border-[#C2DBF1] rounded-xl bg-white bg-opacity-50 shadow-sm p-4 md:p-6">
         {contents.map((content, index) => {
           const Template = templates[content.template];
           return (
             <div
               key={index}
-              className="animate__animated animate__bounceInRight"
+              className="animate__animated animate__fadeIn mb-6 last:mb-0"
             >
               <Template index={index} />
             </div>
           );
         })}
 
-        <div className="flex w-full justify-center m-1 mb-12">
-          <TemplateController></TemplateController>
+        <div className="flex w-full justify-center mt-6 md:mt-8 mb-4">
+          <TemplateController />
         </div>
       </div>
     </div>
