@@ -20,7 +20,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="z-50 min-h-screen py-16 px-4 animate__animated animate__fadeIn bg-[#BDBFC1] bg-opacity-10">
+    <div className=" min-h-screen py-16 px-4 animate__animated animate__fadeIn bg-[#e1e1e1] bg-opacity-10">
       <ToastContainer 
         position="bottom-right" 
         autoClose={3000} 

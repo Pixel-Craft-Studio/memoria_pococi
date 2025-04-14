@@ -66,7 +66,7 @@ const YearDateSelector = ({selectedYear, setSelectedYear}) => {
   };
 
   return (
-    <div className="w-full mx-auto p-6 bg-white rounded-lg ">
+    <div className="w-full mx-auto p-6 bg-white rounded-lg">
       <div className="space-y-6">
         {/* Selector de año con búsqueda */}
         <div className="relative" ref={dropdownRef}>

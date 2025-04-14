@@ -3,7 +3,7 @@ import 'animate.css';
 
 const Footer = () => {
   return (
-    <footer className="z-0 animate__animated animate__fadeIn bg-[#BDBFC1] bg-opacity-30 py-16">
+    <footer className="z-0 animate__animated animate__fadeIn bg-[#ffffff] bg-opacity-30 py-16 border-t-2 border-neutral-200 shadow-lg backdrop-blur-sm">
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Enlaces principales */}
         <div className="flex flex-wrap justify-center gap-6 mb-10">
@@ -37,8 +37,8 @@ const Footer = () => {
             <div className="w-3 h-3 rounded-full bg-[#EABF34]"></div>
             <div className="w-3 h-3 rounded-full bg-[#C2DBF1]"></div>
           </div>
-          <p className="text-[#CB5C1F] text-opacity-90 text-sm mb-1 font-light tracking-wide">
-            © {new Date().getFullYear()} Municipalidad de Pococí
+          <p className="text-[#CB5C1F] text-opacity-90 text-sm mb-1 font-light tracking-wide ">
+            © {new Date().getFullYear()} Memoria Histórica
           </p>
           <p className="text-[#CB5C1F] text-opacity-60 text-xs font-light tracking-wide">
             Todos los derechos reservados

@@ -35,7 +35,7 @@ const TemplateZero = ({ index, hasControllers=true }) => {
   return (
     <div
       className={`flex flex-col justify-center items-center relative ${
-        index % 2 == 0 ? "bg-neutral-200" : "bg-neutral-100"
+        index % 2 == 0 ? "bg-[#f0f0f0]" : "bg-neutral-100"
       } `}
     >
 

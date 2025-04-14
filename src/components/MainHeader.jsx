@@ -15,7 +15,7 @@ const ElegantNav = () => {
   }, []);
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white bg-opacity-95 shadow-sm py-2' : 'bg-[#BDBFC1] bg-opacity-30 py-4'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white bg-opacity-95 shadow-sm py-2' : 'bg-[#353535] bg-opacity-30 py-4'}`}>
       <div className="container mx-auto px-4 animate__animated animate__fadeIn">
         <div className="flex justify-between items-center">
           {/* Logo - Versión mejorada */}
@@ -31,7 +31,7 @@ const ElegantNav = () => {
               />
             </div>
             <span className={`text-xl font-light tracking-wider transition-all duration-500 ${scrolled ? 'text-[#CB5C1F]' : 'text-white'} group-hover:text-[#EABF34]`}>
-              Municipalidad de Pococí
+            Memoria Histórica
             </span>
           </Link>
 

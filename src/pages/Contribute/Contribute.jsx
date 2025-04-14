@@ -26,7 +26,7 @@ const Contribute = () => {
   return (
     <div className="container mx-auto px-4 py-6 flex flex-col lg:flex-row">
       {/* Panel de configuración - Responsive */}
-      <div className="w-full lg:w-60 bg-white rounded-xl shadow-md lg:mr-6 mb-6 lg:mb-0 h-fit lg:sticky lg:top-6 p-5 border border-gray-100">
+      <div className="w-full lg:w-70 bg-white rounded-xl shadow-md lg:mr-6 mb-6 lg:mb-0 h-fit lg:sticky lg:top-6 p-5 border border-gray-100">
         <h2 className="text-2xl mb-6 font-light text-[#CB5C1F] border-b border-[#EABF34] pb-3">
           Configuración
         </h2>
