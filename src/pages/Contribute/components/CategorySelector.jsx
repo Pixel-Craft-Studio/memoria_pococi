@@ -112,7 +112,7 @@ const CategorySelector = () => {
             {filteredCategories.length > 0 ? (
               filteredCategories.map((category) => (
                 <li
-                  key={category}
+                  key={category.id}
                   className="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-indigo-100 text-gray-900"
                   onClick={() => handleCategoryClick(category)}
                 >
@@ -120,7 +120,7 @@ const CategorySelector = () => {
                 </li>
               ))
             ) : (
-              <li className="text-gray-500 select-none relative py-2 pl-3 pr-9">
+              <li key={"none"} className="text-gray-500 select-none relative py-2 pl-3 pr-9">
                 No se encontraron categorías
               </li>
             )}

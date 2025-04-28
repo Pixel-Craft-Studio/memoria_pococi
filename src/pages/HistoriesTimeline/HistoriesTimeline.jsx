@@ -13,10 +13,14 @@ const TimelineItem = ({
   image_url,
   categories,
   isReversed,
+  isDashboard = false
 }) => {
   // Definir cuántas categorías mostrar inicialmente
   const categoryLimit = 3;
   const hasManyCatagories = categories && categories.length > categoryLimit;
+
+  const webUrl = `/linea-especifica/${id}`
+  const dashboardUrl = `/dashboard/contribution/${id}`
 
   return (
     <div
@@ -33,7 +37,7 @@ const TimelineItem = ({
         <div className="flex justify-between space-y-2">
           {/* Botón "Ver nota" */}
           <Link
-            to={`/linea-especifica/${id}`}
+            to={`${isDashboard ? dashboardUrl : webUrl}`}
             className="text-sm text-left cursor-pointer text-blue-500 hover:underline"
           >
             Ver entrada
@@ -77,7 +81,7 @@ const TimelineItem = ({
           isReversed ? "lg:mr-17" : "lg:ml-13"
         }`}
       >
-        <div className="bg-[#f0f0f0] w-[41px] h-[41px] rounded-full"></div>
+        <div className="bg-[#da7116] w-[41px] h-[41px] rounded-full"></div>
         <div className="absolute h-[220px] border-neutral-400 border-l-2 top-[40px] left-[20px]"></div>
       </div>
     </div>
@@ -90,9 +94,10 @@ TimelineItem.propTypes = {
   image_url: PropTypes.string.isRequired,
   categories: PropTypes.arrayOf(PropTypes.any).isRequired,
   isReversed: PropTypes.bool,
+  isDashboard: PropTypes.bool,
 };
 
-const HistoriesTimeline = () => {
+const HistoriesTimeline = ({isDashboard = false}) => {
   const { year } = useParams();
 
   const [timelineHistories, setTimelineHistories] = useState([]);
@@ -148,7 +153,7 @@ const HistoriesTimeline = () => {
   }
 
   return (
-    <div className="flex justify-center items-center flex-col my-4">
+    <div className="flex justify-center items-center flex-col my-4 ">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row gap-8 items-center">
           {/* Imagen - izquierda en desktop, arriba en móvil */}
@@ -162,10 +167,10 @@ const HistoriesTimeline = () => {
 
           {/* Contenido de texto - derecha en desktop, abajo en móvil */}
           <div className="md:w-3/5">
-            <h1 className="text-3xl font-bold text-gray-800 mb-3">
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-300 mb-3">
               {timelineData.title}
             </h1>
-            <p className="text-lg text-gray-600 mb-5">
+            <p className="text-lg text-gray-600 dark:text-gray-200 mb-5">
               {timelineData.description}
             </p>
           </div>
@@ -179,11 +184,15 @@ const HistoriesTimeline = () => {
 
       <div className="container mx-auto p-4">
         {timelineHistories.map((item, index) => (
-          <TimelineItem key={index} {...item} isReversed={index % 2 !== 0} />
+          <TimelineItem key={index} {...item} isReversed={index % 2 !== 0} isDashboard={isDashboard} />
         ))}
       </div>
     </div>
   );
+};
+
+HistoriesTimeline.propTypes = {
+  isDashboard: PropTypes.bool,
 };
 
 export default HistoriesTimeline;

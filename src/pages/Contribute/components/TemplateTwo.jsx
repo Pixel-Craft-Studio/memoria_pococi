@@ -33,7 +33,7 @@ const TemplateTwo = ({ index, hasControllers=true }) => {
 
   return (
     <div
-      className={`flex flex-col justify-center items-center relative ${
+      className={`p-2 flex flex-col justify-center items-center relative ${
         index % 2 == 0 ? "bg-[#f0f0f0]" : "bg-neutral-100"
       } `}
     >

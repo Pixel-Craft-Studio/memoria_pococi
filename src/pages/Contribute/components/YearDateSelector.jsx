@@ -1,11 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { useGetAll } from '../../../hooks/useBaseEndpointQueries';
 import { ENDPOINTS } from '../../../api/api_constants';
 
-const YearDateSelector = ({selectedYear, setSelectedYear}) => {
+const YearDateSelector = ({selectedYear, setSelectedYear, dateValue, setDateValue}) => {
  
-  const [dateValue, setDateValue] = useState('');
+  
   const [minDate, setMinDate] = useState('');
   const [maxDate, setMaxDate] = useState('');
   const [isYearSelectOpen, setIsYearSelectOpen] = useState(false);
@@ -120,7 +120,7 @@ const YearDateSelector = ({selectedYear, setSelectedYear}) => {
                       </li>
                     ))
                   ) : (
-                    <li className="py-2 pl-3 pr-9 text-gray-500">No se encontraron resultados</li>
+                    <li className="py-2 pl-3 pr-9 text-gray-500">Sin resultados</li>
                   )}
                 </ul>
               </div>
@@ -144,9 +144,6 @@ const YearDateSelector = ({selectedYear, setSelectedYear}) => {
     </div>
   );
 };
-YearDateSelector.propTypes = {
-  selectedYear: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  setSelectedYear: PropTypes.func.isRequired,
-};
+
 
 export default YearDateSelector;

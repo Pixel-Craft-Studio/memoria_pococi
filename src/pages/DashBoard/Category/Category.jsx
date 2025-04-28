@@ -5,6 +5,7 @@ import { CREATE, UPDATE } from "../../../api/api_constants";
 import BaseModal from "../../../components/BaseModal";
 import AlertModal from "../../../components/AlertModal";
 import { useCategoryApi } from "./hooks/useCategoryApi";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 
 const Category = () => {
@@ -32,9 +33,10 @@ const Category = () => {
                     <div>Categorias existentes</div>
                     <button
                         type="button"
-                        className="cursor-pointer px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-700 transition-colors duration-200"
+                        className="flex gap-2 items-center font-bold cursor-pointer px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-700 transition-colors duration-200"
                         onClick={handleCreate}
                     >
+                        <PlusIcon width={20}></PlusIcon>
                         Crear
                     </button>
                 </div>

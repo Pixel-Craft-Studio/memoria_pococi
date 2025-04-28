@@ -6,6 +6,7 @@ import BaseModal from "../../../components/BaseModal";
 import AlertModal from "../../../components/AlertModal";
 import { useTeamApi } from "./hooks/useTeamApi";
 import TeamCards from "./useTeamCard";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 
 const Equipo = () => {
@@ -33,9 +34,10 @@ const Equipo = () => {
                     <div>Equipo de trabajo.</div>
                     <button
                         type="button"
-                        className="cursor-pointer px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-700"
+                        className="flex gap-2 items-center font-bold cursor-pointer px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-700 transition-colors duration-200"
                         onClick={handleCreate}
                     >
+                        <PlusIcon width={20}></PlusIcon>
                         Crear
                     </button>
                 </div>

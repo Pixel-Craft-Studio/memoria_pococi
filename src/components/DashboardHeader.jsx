@@ -23,7 +23,7 @@ const DashboardHeader = () => {
           )}
         </button>
 
-        <h2 className="text-xl font-bold text-center z-50 ml-8 ">Dashboard</h2>
+        <h2 className="text-xl font-bold text-center z-50 ml-8 ">Panel</h2>
         <ThemeSwitcher />
       </div>
     </div>

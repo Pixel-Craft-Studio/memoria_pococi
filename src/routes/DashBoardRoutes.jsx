@@ -12,6 +12,8 @@ import ResetPassword from "../pages/DashBoard/ResetPassword/ResetPassword";
 import Recovery from "../pages/DashBoard/Recovery";
 import Category from "../pages/DashBoard/Category/Category";
 import Period from "../pages/DashBoard/Period/Period";
+import DashboardHistoriesTimeline from "../pages/DashBoard/DashboardHistoriesTimeline/DashboardHistoriesTimeline";
+import DashboardContributionLine from "../pages/DashBoard/DashboardContributionLine/Dashboard_ContributionLine";
 
 const DashboardRoutes = () => {
   const token = localStorage.getItem("token");
@@ -97,6 +99,25 @@ const DashboardRoutes = () => {
           </DashboardLayout>
         }
       />
+
+      <Route
+        path="/contribution/:id"
+        element={
+          <DashboardLayout>
+            <DashboardContributionLine />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/period/:year"
+        element={
+          <DashboardLayout>
+            <DashboardHistoriesTimeline />
+          </DashboardLayout>
+        }
+      />
+
       <Route
         path="/period"
         element={
@@ -105,6 +126,7 @@ const DashboardRoutes = () => {
           </DashboardLayout>
         }
       />
+
       <Route
         path="/reset-password"
         element={

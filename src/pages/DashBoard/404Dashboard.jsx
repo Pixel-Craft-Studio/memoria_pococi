@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import 'animate.css';
+import { useNavigate } from 'react-router-dom';
 
 function Error404Dashboard() {
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         // Agregar la clase para el fondo monocromático al body
@@ -39,7 +42,7 @@ function Error404Dashboard() {
 
                     {/* Botón para regresar con animación */}
                     <button
-                        onClick={() => window.location.href = '/dashboard'}
+                        onClick={() =>navigate('/dashboard')}
                         className="cursor-pointer animate__animated animate__pulse animate__infinite animate__slow bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-300 transition duration-300 transform hover:scale-105"
                     >
                         Regresar al inicio

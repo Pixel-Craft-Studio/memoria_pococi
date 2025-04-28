@@ -53,7 +53,7 @@ const Sidebar = () => {
     <div className=" flex dark:text-white">
       {/* Sidebar */}
       <aside
-        className={`fixed pt-10 top-0 left-0 h-full bg-gray-200 dark:bg-gray-800 flex flex-col transition-all duration-500 overflow-hidden ${
+        className={`fixed pt-10 top-0 left-0 h-full bg-gray-200 dark:bg-gray-800 flex flex-col  overflow-hidden ${
           isOpen ? "w-50" : "w-0"
         } md:w-50`}
       >
@@ -61,7 +61,7 @@ const Sidebar = () => {
           {/* Navegación */}
           <nav className="flex-1 mt-6">
             <ul className="space-y-4">
-              <Link
+            <Link
                 to="/dashboard"
                 className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive(
                   "/dashboard"
@@ -69,7 +69,7 @@ const Sidebar = () => {
                 onClick={() => setIsConfigOpen(false)} // Cierra configuración si se selecciona otra opción
               >
                 <FiHome className="text-lg" />
-                <span>Inicio</span>
+                <span>Aportes</span>
               </Link>
 
               <li>
@@ -157,23 +157,14 @@ const Sidebar = () => {
                   </ul>
                 </div>
               </li>
-              <Link
-                to=""
-                className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive(
-                  "/dashboard/reportes"
-                )}`}
-                onClick={() => setIsConfigOpen(false)} // Cierra configuración si se selecciona otra opción
-              >
-                <FiHome className="text-lg" />
-                <span>Aportes</span>
-              </Link>
+
             </ul>
           </nav>
 
           {/* Botón de cerrar sesión */}
           <div className="mt-auto">
             <button
-              className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-red-500 dark:hover:bg-red-600"
+              className="flex w-full items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-red-500 dark:hover:bg-red-600"
               onClick={handleLogout}
             >
               <FiLogOut className="text-lg" />

@@ -16,6 +16,7 @@ export const ContentProvider = ({ children }) => {
       content:
         "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium...",
       image_url: "",
+      image: undefined
     }
 
   ]);
@@ -32,6 +33,7 @@ export const ContentProvider = ({ children }) => {
         content:
           "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium...",
         image_url: "",
+        image: undefined
       },
     ]);
   };

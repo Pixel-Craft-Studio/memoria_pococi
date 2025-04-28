@@ -49,7 +49,7 @@ const TimelineItem = ({ year, title, description, image_url, isReversed }) => {
           isReversed ? "lg:mr-17" : "lg:ml-13"
         }`}
       >
-        <div className="bg-[#f0f0f0] w-[41px] h-[41px] rounded-full"></div>
+        <div className="bg-[#da7116] w-[41px] h-[41px] rounded-full"></div>
         <div className="absolute h-[220px] border-neutral-400 border-l-2 top-[40px] left-[20px]"></div>
       </div>
     </div>

@@ -3,8 +3,10 @@ import { PREVIEW } from "../../../utils/constants";
 import { useContent } from "../ContentContext";
 import { useRef, useEffect } from "react";
 import ExpandableController from "./ExpandableController";
+import { API_URL } from "../../../api/api_constants";
+import ImageWithFallback from "../../../components/ImageWithFallBack";
 
-const TemplateOne = ({ index, hasControllers=true }) => {
+const TemplateOne = ({ index, hasControllers = true }) => {
   const { getContent, setContent } = useContent();
   const content = getContent(index);
 
@@ -14,6 +16,20 @@ const TemplateOne = ({ index, hasControllers=true }) => {
 
   const handleContentEditableChange = (e, field) => {
     setContent(index, { [field]: e.currentTarget.innerText });
+  };
+
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const objectUrl = URL.createObjectURL(file);
+      
+      
+      setContent(index, { ["previewUrl"]: objectUrl });
+      setContent(index, { ["image"]: file });
+
+      return () => URL.revokeObjectURL(objectUrl);
+    }
   };
 
   useEffect(() => {
@@ -29,7 +45,7 @@ const TemplateOne = ({ index, hasControllers=true }) => {
     ) {
       contentRef.current.innerText = content.content || "";
     }
-  }, [content, content.stage]); 
+  }, [content, content.stage]);
 
   return (
     <div
@@ -37,7 +53,9 @@ const TemplateOne = ({ index, hasControllers=true }) => {
         index % 2 == 0 ? "bg-[#f0f0f0]" : "bg-neutral-100"
       } `}
     >
-      {hasControllers && <ExpandableController index={index}></ExpandableController>}
+      {hasControllers && (
+        <ExpandableController index={index}></ExpandableController>
+      )}
 
       {/* Container principal - flex-col en móvil, flex-row en desktop */}
       <div
@@ -92,11 +110,29 @@ const TemplateOne = ({ index, hasControllers=true }) => {
 
         {/* Columna de imagen - ocupa todo el ancho en móvil, 50% en desktop */}
         <div className="w-full lg:w-1/2 flex items-center justify-center">
-          <img
-            className="w-full h-auto object-cover bg-center aspect-[16/9]"
-            src="https://www.lateja.cr/resizer/ZUEmhfPxRiuJa7O-F2UP1_Uu8L4=/1440x0/filters:format(jpg):quality(70)/cloudfront-us-east-1.images.arcpublishing.com/gruponacion/66MI6XPCI5D3XBLMI3XG7GHOEU.jpg"
+          <ImageWithFallback
+            className="w-full h-auto object-cover bg-center aspect-video"
+            src={`${
+              content.previewUrl ? content.previewUrl : API_URL + "/image" + content.image_url
+            }`}
             alt=""
           />
+
+          {content.stage != PREVIEW && (
+            <label className="bottom-0 right-0 absolute cursor-pointer flex items-center justify-center border border-gray-300  p-2 bg-gray-50 hover:bg-gray-100 transition-colors">
+              <div className="text-center">
+                <p className="mt-1 text-sm text-gray-500">
+                  {content.previewUrl ? "Cambiar" : "Agregar"}
+                </p>
+              </div>
+              <input
+                type="file"
+                className="hidden"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </label>
+          )}
         </div>
       </div>
     </div>
@@ -105,7 +141,7 @@ const TemplateOne = ({ index, hasControllers=true }) => {
 
 TemplateOne.propTypes = {
   index: PropTypes.number.isRequired,
-  hasControllers: PropTypes.bool
+  hasControllers: PropTypes.bool,
 };
 
 export default TemplateOne;
