@@ -8,6 +8,8 @@ import {
   FaPaperPlane,
   FaEye,
   FaArchive,
+  FaBars,
+  FaTimes
 } from "react-icons/fa";
 import CustomCheckBox from "../Components/CustomCheckbox";
 import { ENDPOINTS } from "../../../api/api_constants";
@@ -26,6 +28,8 @@ const InboxComponent = () => {
     y: 0,
     emailId: null,
   });
+  // Estado para controlar la visibilidad del sidebar en móvil
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const checkboxRefs = useRef({});
   const [currentMessages, setCurrentMessages] = useState("new");
@@ -61,7 +65,7 @@ const InboxComponent = () => {
 
   const [emails, setemails] = useState([]);
 
-  // Cerrar el menú contextual cuando se hace click fuera
+  // Cerrar el menú contextual cuando se hace click fuera o al hacer scroll
   useEffect(() => {
     const handleClickOutside = () => {
       if (contextMenu.show) {
@@ -84,9 +88,18 @@ const InboxComponent = () => {
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("click", handleScroll);
+      if (emailListContainer) {
+        emailListContainer.removeEventListener("scroll", handleScroll);
+      }
     };
   }, [contextMenu]);
+
+  // Cerrar el sidebar al cambiar a una vista diferente en móvil
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setSidebarVisible(false);
+    }
+  }, [currentMessages]);
 
   const handleSelectAll = (isChecked) => {
     setSelectAll(isChecked);
@@ -104,13 +117,15 @@ const InboxComponent = () => {
   };
 
   const handleSendModal = () => {
-    const deleteEmails = Object.keys(selectedEmails);
+    const deleteEmails = Object.keys(selectedEmails).filter(
+      (id) => selectedEmails[id] === true
+    );
     
-    if (deleteEmails.length == 0) {
+    if (deleteEmails.length === 0) {
       return;
     }
 
-    if (currentMessages == "deleted") {
+    if (currentMessages === "deleted") {
       deleteDataApi({
         id: "bulk",
         data: { contact_ids: deleteEmails },
@@ -119,7 +134,12 @@ const InboxComponent = () => {
   };
 
   // Función para manejar selecciones individuales
-  const handleSelectEmail = (id, isChecked) => {
+  const handleSelectEmail = (id, isChecked, e) => {
+    // Detener la propagación del evento para evitar que se abra el modal
+    if (e) {
+      e.stopPropagation();
+    }
+
     setSelectedEmails((prev) => ({
       ...prev,
       [id]: isChecked,
@@ -141,31 +161,19 @@ const InboxComponent = () => {
     }
   };
 
-  const handleNewEmails = () => {
-    setCurrentMessages("new");
+  const handleMessageTypeChange = (type) => {
+    setCurrentMessages(type);
+    // En móvil, cerrar el sidebar después de seleccionar
+    if (window.innerWidth < 768) {
+      setSidebarVisible(false);
+    }
   };
 
-  const handleReadEmails = () => {
-    setCurrentMessages("readed");
+  // Función para abrir el modal de visualización
+  const handleEmailClick = (email) => {
+    setSelectedEmail(email);
+    setIsEmailModalOpen(true);
   };
-
-  const handleArchivedEmails = () => {
-    setCurrentMessages("archived");
-  };
-
-  const handleRespondedEmails = () => {
-    setCurrentMessages("responded");
-  };
-
-  const handleDeletedEmails = () => {
-    setCurrentMessages("deleted");
-  };
-
-  // Añade esta función para manejar la apertura del modal:
-const handleEmailClick = (email) => {
-  setSelectedEmail(email);
-  setIsEmailModalOpen(true);
-};
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -181,10 +189,17 @@ const handleEmailClick = (email) => {
   // Manejador para el menú contextual
   const handleContextMenu = (e, emailId) => {
     e.preventDefault();
+    e.stopPropagation(); // Prevenir que se abra el modal al hacer clic derecho
+    
+    // Ajustar posición para móviles
+    const isSmallScreen = window.innerWidth < 768;
+    const xPos = isSmallScreen ? Math.min(e.pageX - 150, window.innerWidth - 200) : e.pageX - 200;
+    const yPos = Math.min(e.pageY, window.innerHeight - 250);
+    
     setContextMenu({
       show: true,
-      x: e.pageX - 200,
-      y: e.pageY,
+      x: xPos,
+      y: yPos,
       emailId: emailId,
     });
   };
@@ -197,15 +212,11 @@ const handleEmailClick = (email) => {
   };
 
   useEffect(() => {
-    console.log(contextMenuStatus);
-
     if (contextMenuStatus === "permanently-deleted") {
-
       deleteDataApi({
         id: "bulk",
         data: { contact_ids: [updateId] },
       });
-
       return;
     }
     
@@ -233,12 +244,15 @@ const handleEmailClick = (email) => {
   }, [deleteData]);
 
   const handleDeletion = () => {
-    const deleteEmails = Object.keys(selectedEmails);
-    if (deleteEmails.length == 0) {
+    const deleteEmails = Object.keys(selectedEmails).filter(
+      (id) => selectedEmails[id] === true
+    );
+    
+    if (deleteEmails.length === 0) {
       return;
     }
 
-    // Move to deleated
+    // Move to deleted
     if (currentMessages !== "deleted") {
       updateDataApi({
         id: "status/bulk",
@@ -248,7 +262,7 @@ const handleEmailClick = (email) => {
     }
     // Delete permanently
     else {
-      setIsModalOpen(true)
+      setIsModalOpen(true);
     }
   };
 
@@ -271,17 +285,29 @@ const handleEmailClick = (email) => {
     );
   });
 
+  // Toggle para el sidebar en móvil
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
   return (
-    <div className="md:flex h-[90vh] dark:bg-gray-900 px-10 py-6">
-      <div className="md:w-55 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-4  md:flex-col shadow-xl">
+    <div className="relative flex flex-col md:flex-row h-[90vh] dark:bg-gray-900 px-2 md:px-10 py-6">
+      {/* Quitamos el botón flotante, ya que lo pondremos en la barra de herramientas */}
+
+      {/* Sidebar - Adaptado para ser responsive */}
+      <div
+        className={`${
+          sidebarVisible ? "block" : "hidden"
+        } md:block fixed md:static z-10 top-0 left-0 h-full md:h-auto md:w-55 w-4/5 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-4 md:flex-col shadow-xl transition-transform duration-300 ease-in-out`}
+      >
         <button className="bg-indigo-700 text-white py-3 px-4 rounded font-medium mb-6 w-full">
           Contactos
         </button>
 
-        <div className="space-y-1 md:block flex-wrap flex justify-evenly">
+        <div className="space-y-1 md:block flex flex-col">
           <div
-            onClick={handleNewEmails}
-            className={`flex items-center px-3 py-2 w-38 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
+            onClick={() => handleMessageTypeChange("new")}
+            className={`flex items-center px-3 py-2 w-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
               currentMessages === "new" ? "bg-gray-200 dark:bg-indigo-500" : ""
             }`}
           >
@@ -289,8 +315,8 @@ const handleEmailClick = (email) => {
             <span>Nuevos</span>
           </div>
           <div
-            onClick={handleReadEmails}
-            className={`flex items-center px-3 py-2 w-38 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
+            onClick={() => handleMessageTypeChange("readed")}
+            className={`flex items-center px-3 py-2 w-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
               currentMessages === "readed"
                 ? "bg-gray-200 dark:bg-indigo-500"
                 : ""
@@ -301,8 +327,8 @@ const handleEmailClick = (email) => {
           </div>
 
           <div
-            onClick={handleRespondedEmails}
-            className={`flex items-center px-3 py-2 w-38 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
+            onClick={() => handleMessageTypeChange("responded")}
+            className={`flex items-center px-3 py-2 w-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
               currentMessages === "responded"
                 ? "bg-gray-200 dark:bg-indigo-500"
                 : ""
@@ -313,8 +339,8 @@ const handleEmailClick = (email) => {
           </div>
 
           <div
-            onClick={handleArchivedEmails}
-            className={`flex items-center px-3 py-2 w-38 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
+            onClick={() => handleMessageTypeChange("archived")}
+            className={`flex items-center px-3 py-2 w-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
               currentMessages === "archived"
                 ? "bg-gray-200 dark:bg-indigo-500"
                 : ""
@@ -325,8 +351,8 @@ const handleEmailClick = (email) => {
           </div>
 
           <div
-            onClick={handleDeletedEmails}
-            className={`flex items-center px-3 py-2 w-38 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
+            onClick={() => handleMessageTypeChange("deleted")}
+            className={`flex items-center px-3 py-2 w-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer ${
               currentMessages === "deleted"
                 ? "bg-gray-200 dark:bg-indigo-500"
                 : ""
@@ -338,33 +364,42 @@ const handleEmailClick = (email) => {
         </div>
       </div>
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col shadow-xl min-h-[50vh]">
+      {/* Main content - Adaptado para ser responsive */}
+      <div className="flex-1 flex flex-col shadow-xl min-h-[50vh] ml-0 md:ml-4 mt-6 md:mt-0">
         {/* Toolbar */}
-        <div className="bg-white dark:bg-gray-800 border-b flex-col-reverse gap-1 md:flex-row border-gray-200 dark:border-gray-700 px-4 py-2 flex items-center justify-evenly">
-          <div className="flex items-center space-x-2 md:w-fit">
-            <CustomCheckBox
-              key="all"
-              onCheckChange={handleSelectAll}
-              ref={(ref) => {
-                if (ref) checkboxRefs.current["all"] = ref;
-              }}
-            />
-            <button
-              className="p-1 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer"
-              onClick={handleDeletion}
-            >
-              <FaTrash className="h-5 w-5" />
-            </button>
-            <button
-              onClick={refetch}
-              className="p-1 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer"
-            >
-              <FaSync className="h-5 w-5" />
-            </button>
+        <div className="bg-white dark:bg-gray-800 border-b flex-col md:flex-row border-gray-200 dark:border-gray-700 px-2 md:px-4 py-2 flex items-center justify-evenly">
+          <div className="flex items-center space-x-2 w-full md:w-auto mb-2 md:mb-0 justify-between md:justify-start">
+            <div className="flex items-center space-x-1">
+              <CustomCheckBox
+                key="all"
+                onCheckChange={handleSelectAll}
+                ref={(ref) => {
+                  if (ref) checkboxRefs.current["all"] = ref;
+                }}
+              />
+              <button
+                className="p-1 text-gray-500 dark:text-gray-400 hover:bg-red-100 dark:hover:bg-red-700 rounded cursor-pointer"
+                onClick={handleDeletion}
+              >
+                <FaTrash className="dark:h-5 w-5" />
+              </button>
+              <button
+                onClick={refetch}
+                className="p-1 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer"
+              >
+                <FaSync className="h-5 w-5" />
+              </button>
+              {/* Botón de hamburguesa movido aquí, al mismo nivel que los otros botones */}
+              <button
+                className="md:hidden p-1 text-gray-500 dark:text-gray-400 hover:bg-indigo-100 dark:hover:bg-indigo-700 rounded cursor-pointer"
+                onClick={toggleSidebar}
+              >
+                {sidebarVisible ? <FaTimes className="h-5 w-5" /> : <FaBars className="h-5 w-5" />}
+              </button>
+            </div>
           </div>
 
-          <div className="flex items-center flex-1 mx-4 w-full">
+          <div className="flex items-center flex-1 w-full">
             <div className="relative flex-1">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <FaSearch className="h-5 w-5 text-gray-400 dark:text-gray-500" />
@@ -385,16 +420,16 @@ const handleEmailClick = (email) => {
           {errorAll && (
             <div className="flex flex-col gap-2 items-center justify-center h-full">
               <BallLoader />
-              <p className="text-gray-400 text-xl font-semibold">
+              <p className="text-center text-gray-400 text-xl font-semibold">
                 Surgió un error al cargar los correos...
               </p>
             </div>
           )}
 
-          {isFetchingAll || isDeleting || isPatching && (
+          {(isFetchingAll || isDeleting || isPatching) && (
             <div className="flex flex-col gap-2 items-center justify-center h-full">
               <BallLoader />
-              <p className="text-gray-400 text-xl font-semibold">
+              <p className="text-center text-gray-400 text-xl font-semibold">
                 Cargando correos...
               </p>
             </div>
@@ -406,13 +441,13 @@ const handleEmailClick = (email) => {
                 {searchQuery.trim()
                   ? "No se encontraron resultados"
                   : `No hay correos ${
-                      currentMessages == "new"
+                      currentMessages === "new"
                         ? "nuevos"
-                        : currentMessages == "readed"
+                        : currentMessages === "readed"
                         ? "leídos"
-                        : currentMessages == "responded"
+                        : currentMessages === "responded"
                         ? "respondidos"
-                        : currentMessages == "archived"
+                        : currentMessages === "archived"
                         ? "archivados"
                         : "eliminados"
                     }`}
@@ -423,36 +458,48 @@ const handleEmailClick = (email) => {
           {filteredEmails.map((email) => (
             <div
               key={email.id}
-              className="grid grid-cols-12 px-4 py-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer relative"
+              className="grid grid-cols-12 px-2 md:px-4 py-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer relative"
               onContextMenu={(e) => handleContextMenu(e, email.id)}
-              onClick={() => handleEmailClick(email)}
             >
-              <div className="col-span-1 flex items-center space-x-2">
+              {/* Checkbox separado para evitar que el clic en ella abra el modal */}
+              <div className="col-span-1 flex items-center" onClick={(e) => e.stopPropagation()}>
                 <CustomCheckBox
                   key={email.id}
                   id={email.id}
-                  onCheckChange={(isChecked) =>
-                    handleSelectEmail(email.id, isChecked)
+                  onCheckChange={(isChecked, e) =>
+                    handleSelectEmail(email.id, isChecked, e)
                   }
                   ref={(ref) => {
                     if (ref) checkboxRefs.current[email.id] = ref;
                   }}
                 />
               </div>
-              <div className="col-span-3">{email.email}</div>
-              <div className="col-span-5">{email.subject}</div>
-              <div className="col-span-3 text-right text-xs absolute right-2 bottom-2">
-                {formatDate(email.updated_at)}
+              
+              {/* Contenido del correo con un manejador de clic separado - Versión responsive mejorada */}
+              <div 
+                className="col-span-11 grid grid-cols-11 cursor-pointer" 
+                onClick={() => handleEmailClick(email)}
+              >
+                {/* Layout adaptativo para móvil y desktop */}
+                <div className="col-span-11 md:col-span-3 mb-1 md:mb-0 font-medium truncate">
+                  {email.email}
+                </div>
+                <div className="col-span-11 md:col-span-5 truncate text-sm md:text-base">
+                  {email.subject}
+                </div>
+                <div className="col-span-11 md:col-span-3 text-right text-xs text-gray-500 dark:text-gray-400 mt-1 md:mt-0">
+                  {formatDate(email.updated_at)}
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Menú contextual */}
+      {/* Menú contextual - Mejorado para móvil */}
       {contextMenu.show && (
         <div
-          className="absolute bg-white dark:bg-gray-800 shadow-lg rounded py-1 border border-gray-200 dark:border-gray-700 z-50"
+          className="fixed bg-white dark:bg-gray-800 shadow-lg rounded py-1 border border-gray-200 dark:border-gray-700 z-50 w-48 md:w-56"
           style={{ top: contextMenu.y, left: contextMenu.x }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -499,7 +546,7 @@ const handleEmailClick = (email) => {
           </>
 
           <div
-            className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            className="flex items-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
             onClick={() => handleChangeEmailStatus("permanently-deleted")}
           >
             <FaTrash className="h-4 w-4 mr-2" />

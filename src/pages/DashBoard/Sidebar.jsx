@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FiHome, FiSettings, FiLogOut, FiChevronDown } from "react-icons/fi";
+import { FiHome, FiSettings, FiLogOut, FiChevronDown, FiUser } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
@@ -9,7 +9,6 @@ const Sidebar = () => {
   const [isOpen] = useLocalStorage("isSidebarOpen", true);
 
   // Determinar si la sección de configuración está activa
-
   const isConfigActive = [
     "/dashboard/about",
     "/dashboard/media",
@@ -17,11 +16,21 @@ const Sidebar = () => {
     "/dashboard/team",
     "/dashboard/contact",
     "/dashboard/period",
-    "/dashboard/category"
+    "/dashboard/category",
+  ].includes(location.pathname);
+
+  // Determinar si la sección de perfil está activa
+  const isProfileActive = [
+    "/dashboard/Reset-Password",
+    "/dashboard/profile-info",
   ].includes(location.pathname);
 
   const [isConfigOpen, setIsConfigOpen] = useState(() => {
     return localStorage.getItem("isConfigOpen") === "true" && isConfigActive;
+  });
+
+  const [isProfileOpen, setIsProfileOpen] = useState(() => {
+    return localStorage.getItem("isProfileOpen") === "true" && isProfileActive;
   });
 
   useEffect(() => {
@@ -35,8 +44,27 @@ const Sidebar = () => {
     }
   }, [isConfigActive, location.pathname]);
 
+  useEffect(() => {
+    localStorage.setItem("isProfileOpen", isProfileOpen);
+  }, [isProfileOpen]);
+
+  useEffect(() => {
+    // Si el usuario navega fuera de perfil, se cierra
+    if (!isProfileActive) {
+      setIsProfileOpen(false);
+    }
+  }, [isProfileActive, location.pathname]);
+
   const toggleConfig = () => {
     setIsConfigOpen(!isConfigOpen);
+    // Cerrar el otro menú si está abierto
+    if (isProfileOpen) setIsProfileOpen(false);
+  };
+
+  const toggleProfile = () => {
+    setIsProfileOpen(!isProfileOpen);
+    // Cerrar el otro menú si está abierto
+    if (isConfigOpen) setIsConfigOpen(false);
   };
 
   // Función para determinar si una ruta está activa
@@ -50,10 +78,10 @@ const Sidebar = () => {
   };
 
   return (
-    <div className=" flex dark:text-white">
+    <div className="flex dark:text-white">
       {/* Sidebar */}
       <aside
-        className={`fixed pt-10 top-0 left-0 h-full bg-gray-200 dark:bg-gray-800 flex flex-col  overflow-hidden ${
+        className={`fixed pt-10 top-0 left-0 h-full bg-gray-200 dark:bg-gray-800 flex flex-col overflow-hidden ${
           isOpen ? "w-50" : "w-0"
         } md:w-50`}
       >
@@ -61,12 +89,15 @@ const Sidebar = () => {
           {/* Navegación */}
           <nav className="flex-1 mt-6">
             <ul className="space-y-4">
-            <Link
+              <Link
                 to="/dashboard"
                 className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive(
                   "/dashboard"
                 )}`}
-                onClick={() => setIsConfigOpen(false)} // Cierra configuración si se selecciona otra opción
+                onClick={() => {
+                  setIsConfigOpen(false);
+                  setIsProfileOpen(false);
+                }}
               >
                 <FiHome className="text-lg" />
                 <span>Aportes</span>
@@ -90,8 +121,8 @@ const Sidebar = () => {
 
                 {/* Sección de configuración */}
                 <div
-                  className={`overflow-hidden ${
-                    isConfigOpen ? "mt-2" : "max-h-0"
+                  className={`overflow-hidden transition-all duration-300 ${
+                    isConfigOpen ? "max-h-96 mt-2" : "max-h-0"
                   }`}
                 >
                   <ul className="pl-8 space-y-3">
@@ -149,7 +180,7 @@ const Sidebar = () => {
                     <Link
                       to="/dashboard/period"
                       className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive(
-                        "/dashboard/periods"
+                        "/dashboard/period"
                       )}`}
                     >
                       <span>Años</span>
@@ -158,6 +189,40 @@ const Sidebar = () => {
                 </div>
               </li>
 
+              <li>
+                <button
+                  onClick={toggleProfile}
+                  className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 w-full ${
+                    isProfileActive ? "bg-gray-300 dark:bg-gray-700" : ""
+                  }`}
+                >
+                  <FiUser className="text-lg" />
+                  <span>Perfil</span>
+                  <FiChevronDown
+                    className={`ml-auto transform ${
+                      isProfileOpen ? "rotate-180" : ""
+                    } transition-transform duration-300`}
+                  />
+                </button>
+
+                {/* Sección de perfil */}
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    isProfileOpen ? "max-h-96 mt-2" : "max-h-0"
+                  }`}
+                >
+                  <ul className="pl-8 space-y-3">
+                    <Link
+                      to="/dashboard/Reset-Password"
+                      className={`flex items-center space-x-3 p-1 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 ${isActive(
+                        "/dashboard/Reset-Password"
+                      )}`}
+                    >
+                      <span>Cambiar Contraseña</span>
+                    </Link>
+                  </ul>
+                </div>
+              </li>
             </ul>
           </nav>
 

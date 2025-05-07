@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Importamos useNavigate
 import CustomCheckBox from "../Components/CustomCheckbox";
 import { ENDPOINTS } from "../../../api/api_constants";
 import { usePost } from "../../../hooks/useBaseEndpointQueries";
@@ -13,10 +14,11 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const [alert, setAlert] = useState({ message: "", type: "" });
   const [userData, setUserData] = useLocalStorage("userData", {});
-  const [ , setToken] = useLocalStorage("token", "");
+  const [, setToken] = useLocalStorage("token", "");
 
   const {
     data: createDataResponse,
@@ -60,17 +62,20 @@ const ResetPassword = () => {
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-      setAlert({message:"La contraseña se ha actualizado exitosamente", type: "success"})
+      setAlert({message:"La contraseña se ha actualizado exitosamente", type: "success"});
+      
+      
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1000);
     }
-  }, [createDataResponse, setToken, setUserData]);
+  }, [createDataResponse, setToken, setUserData, navigate]);
 
   useEffect(() => {
-    
     if(postError){
       setAlert({message:postError.message, type: "error"})
     }
-  }, [postError])
-  
+  }, [postError]);
 
   const renderLoading = () => (
     <div className="flex flex-col items-center justify-center min-h-screen dark:bg-gray-900">

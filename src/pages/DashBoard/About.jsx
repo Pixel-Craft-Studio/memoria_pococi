@@ -107,7 +107,7 @@ function About() {
 
             <div className="text-sm text-gray-600 dark:text-gray-400">
               <p>
-                <strong>Nota:</strong> La nueva imagen debe tener un tamaño de 1920x500 píxeles para una mejor visualización.
+                <strong>Nota:</strong> La nueva imagen debe tener un tamaño de 1920x500 píxeles en una proporcion de 16:3 para una mejor visualización.
               </p>
             </div>
 
